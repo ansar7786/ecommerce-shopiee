@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-page text-ink-900 font-sans antialiased;
+    min-width: 320px;
+  }
+
+  html[lang='te'] body,
+  body[lang='te'],
+  .lang-te {
+    line-height: 1.6;
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "app": {
+    "name": "Kirana Platform",
+    "description": "Hyperlocal Kirana Delivery"
+  },
+  "nav": {
+    "home": "Home",
+    "search": "Search",
+    "cart": "Cart",
+    "orders": "Orders",
+    "profile": "Profile",
+    "products": "Products",
+    "earnings": "Earnings",
+    "settings": "Settings",
+    "dashboard": "Dashboard",
+    "stores": "Stores",
+    "users": "Users",
+    "catalogue": "Catalogue",
+    "complaints": "Complaints",
+    "reports": "Reports"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "retry": "Retry",
+    "loading": "Loading...",
+    "confirm": "Confirm",
+    "close": "Close",
+    "back": "Back",
+    "empty": "No items found",
+    "search": "Search items...",
+    "language": "Language",
+    "english": "English",
+    "telugu": "తెలుగు"
+  },
+  "status": {
+    "placed": "Placed",
+    "accepted": "Accepted",
+    "packing": "Packing",
+    "ready": "Ready",
+    "out_for_delivery": "Out for Delivery",
+    "delivered": "Delivered",
+    "awaiting_customer": "Awaiting Confirmation",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled",
+    "expired": "Expired",
+    "delivery_failed": "Delivery Failed"
+  }
+}
