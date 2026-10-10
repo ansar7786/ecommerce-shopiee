@@ -9,3 +9,6 @@ export { QuantityStepper } from './QuantityStepper';
 export { BottomSheet } from './BottomSheet';
 export { Toast, ToastProvider, useToast } from './Toast';
 export { Timeline } from './Timeline';
+export { DataTable } from './DataTable';
+export { StoreCard } from './StoreCard';
+export { ProductCard } from './ProductCard';

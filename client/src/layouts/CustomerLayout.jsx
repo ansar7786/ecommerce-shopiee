@@ -2,9 +2,11 @@ import { Outlet, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Home, Search, ShoppingCart, Package, User } from 'lucide-react';
 import { LanguageToggle } from '../components/LanguageToggle';
+import { useCart } from '../context/CartContext';
 
 export const CustomerLayout = () => {
   const { t } = useTranslation();
+  const { totalCount } = useCart();
 
   const navItems = [
     { to: '/app', end: true, label: t('nav.home'), icon: Home },
@@ -25,7 +27,21 @@ export const CustomerLayout = () => {
             </span>
             <span className="font-bold text-lg text-ink-900 tracking-tight">{t('app.name')}</span>
           </NavLink>
-          <LanguageToggle />
+          <div className="flex items-center gap-3">
+            <NavLink
+              to="/app/cart"
+              className="relative p-2 rounded-xl text-ink-600 hover:text-ink-900 hover:bg-ink-50 transition-colors"
+              aria-label="View Shopping Cart"
+            >
+              <ShoppingCart className="w-5 h-5 stroke-[2]" />
+              {totalCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 bg-accent-500 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-xs">
+                  {totalCount > 99 ? '99+' : totalCount}
+                </span>
+              )}
+            </NavLink>
+            <LanguageToggle />
+          </div>
         </div>
       </header>
 
@@ -42,18 +58,26 @@ export const CustomerLayout = () => {
         <div className="flex items-center justify-around h-16 px-2">
           {navItems.map((item) => {
             const Icon = item.icon;
+            const isCart = item.to === '/app/cart';
             return (
               <NavLink
                 key={item.to}
                 to={item.to}
                 end={item.end}
                 className={({ isActive }) =>
-                  `flex flex-col items-center justify-center flex-1 min-h-[48px] py-1 gap-1 text-xs transition-colors ${
+                  `relative flex flex-col items-center justify-center flex-1 min-h-[48px] py-1 gap-1 text-xs transition-colors ${
                     isActive ? 'text-primary-600 font-bold' : 'text-ink-600 hover:text-ink-900'
                   }`
                 }
               >
-                <Icon className="w-5 h-5 stroke-[2.2]" />
+                <div className="relative">
+                  <Icon className="w-5 h-5 stroke-[2.2]" />
+                  {isCart && totalCount > 0 && (
+                    <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-0.5 bg-accent-500 text-white text-[9px] font-black rounded-full flex items-center justify-center shadow-xs">
+                      {totalCount > 99 ? '99+' : totalCount}
+                    </span>
+                  )}
+                </div>
                 <span className="truncate max-w-[64px]">{item.label}</span>
               </NavLink>
             );

@@ -9,6 +9,7 @@ import '@fontsource/noto-sans-telugu/500.css';
 import '@fontsource/noto-sans-telugu/600.css';
 import '@fontsource/noto-sans-telugu/700.css';
 import './i18n/index.js';
+import 'leaflet/dist/leaflet.css';
 import App from './App.jsx';
 import './index.css';
 

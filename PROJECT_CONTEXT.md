@@ -127,3 +127,16 @@ Start every chat with: "Read PROJECT_CONTEXT.md first."
 State which Build Step (0–14) you're on.
 Prefer small diffs. After each step, list the files changed and how to test.
 If this file and the Guide disagree, stop and flag it.
+## 12. Decisions added after review (these override the Guide where they differ)
+- Client runs on port 5802. Repo root folder is siva-app.
+- NO `PAYMENT_PENDING` order status. An order is created only after payment SUCCESS (COD counts as immediately successful). The Payment record carries PENDING/SUCCESS/FAILED/CANCELLED/REFUNDED/PARTIALLY_REFUNDED.
+- All money is stored as INTEGER PAISE (₹12.50 = 1250). Format to ₹ only in the UI via utils/format.js.
+- storeProducts: unique index on (store, masterProduct) must be a PARTIAL index (only where masterProduct exists), so custom products do not collide.
+- Order numbers (#KR-1001...) come from an atomic counter collection.
+- Expiry uses a 30-second sweeper job (setInterval) that checks `expiresAt`, so it survives server restarts.
+- Pickup orders: READY -> DELIVERED directly; UI label is "Handed over" / "Picked up", never "Out for delivery".
+- Customer cancel allowed from PLACED, ACCEPTED, AWAITING_CUSTOMER. Admin force-cancel allowed from any non-terminal status. System auto-cancel (10-min customer timeout) is actor "system".
+- When items are marked unavailable: keep the original delivery fee, recompute subtotal and total; prepaid orders get a mock partial refund.
+- A store owner cannot order from their own store. Customer routes also allow role store_owner.
+- Card mock rule: server receives only brand and last4. last4 "0002" fails, any other valid card succeeds.
+- Images: never invent image URLs. Product images are real files in server/uploads (served at /uploads). No image = category placeholder tile. Never hotlink retailer sites.

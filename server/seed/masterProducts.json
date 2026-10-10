@@ -1,0 +1,222 @@
+[
+  {
+    "category": "Dairy",
+    "categoryTe": "పాలు",
+    "categoryIcon": "Milk",
+    "products": [
+      { "name": "Vijaya Standardised Milk", "nameTe": "విజయ స్టాండర్డైజ్డ్ పాలు", "brand": "Vijaya", "unit": "500 ml", "mrp": 3200, "tags": ["milk", "dairy", "fresh"], "image": null },
+      { "name": "Heritage Toned Milk", "nameTe": "హెరిటేజ్ టోన్డ్ పాలు", "brand": "Heritage", "unit": "500 ml", "mrp": 3000, "tags": ["milk", "toned milk"], "image": null },
+      { "name": "Heritage Curd", "nameTe": "హెరిటేజ్ పెరుగు", "brand": "Heritage", "unit": "500 g", "mrp": 4000, "tags": ["curd", "dahi", "dairy"], "image": null },
+      { "name": "Amul Taaza Homogenised Milk", "nameTe": "అముల్ తాజా పాలు", "brand": "Amul", "unit": "1 L", "mrp": 7400, "tags": ["amul", "milk", "tetra"], "image": null },
+      { "name": "Vijaya Cow Ghee", "nameTe": "విజయ ఆవు నెయ్యి", "brand": "Vijaya", "unit": "200 ml", "mrp": 16000, "tags": ["ghee", "cow ghee"], "image": null },
+      { "name": "Amul Pasteurized Butter", "nameTe": "అముల్ బటర్", "brand": "Amul", "unit": "100 g", "mrp": 6000, "tags": ["butter", "dairy"], "image": null },
+      { "name": "Heritage Fresh Paneer", "nameTe": "హెరిటేజ్ పన్నీర్", "brand": "Heritage", "unit": "200 g", "mrp": 11000, "tags": ["paneer", "cottage cheese"], "image": null },
+      { "name": "Cavin's Chocolate Milkshake", "nameTe": "కావిన్స్ చాక్లెట్ మిల్క్‌షేక్", "brand": "Cavin's", "unit": "180 ml", "mrp": 4000, "tags": ["shake", "chocolate"], "image": null },
+      { "name": "Amul Cheese Slices", "nameTe": "అముల్ చీజ్ స్లైసెస్", "brand": "Amul", "unit": "200 g", "mrp": 14500, "tags": ["cheese", "dairy"], "image": null },
+      { "name": "Heritage Spiced Butter Milk", "nameTe": "హెరిటేజ్ మసాలా మజ్జిగ", "brand": "Heritage", "unit": "200 ml", "mrp": 1500, "tags": ["buttermilk", "majjiga"], "image": null },
+      { "name": "Vijaya Cooking Butter", "nameTe": "విజయ వంట వెన్న", "brand": "Vijaya", "unit": "500 g", "mrp": 32000, "tags": ["butter", "cooking"], "image": null },
+      { "name": "Amul Fresh Cream", "nameTe": "అముల్ ఫ్రెష్ క్రీమ్", "brand": "Amul", "unit": "250 ml", "mrp": 7000, "tags": ["cream", "dairy"], "image": null },
+      { "name": "Nestle Everyday Dairy Whitener", "nameTe": "నెస్లే ఎవ్రీడే డైరీ వైట్నర్", "brand": "Nestle", "unit": "200 g", "mrp": 11500, "tags": ["milk powder", "tea"], "image": null },
+      { "name": "Heritage Mishti Doi", "nameTe": "హెరిటేజ్ మిష్టి దొయి", "brand": "Heritage", "unit": "85 g", "mrp": 2500, "tags": ["curd", "sweet"], "image": null },
+      { "name": "Amul Kool Kesar Flavour Milk", "nameTe": "అముల్ కూల్ కేసర్ పాలు", "brand": "Amul", "unit": "180 ml", "mrp": 3000, "tags": ["flavoured milk"], "image": null }
+    ]
+  },
+  {
+    "category": "Staples",
+    "categoryTe": "సరుకులు",
+    "categoryIcon": "Wheat",
+    "products": [
+      { "name": "Aashirvaad Shudh Chakki Atta", "nameTe": "ఆశీర్వాద్ గోధుమ పిండి", "brand": "Aashirvaad", "unit": "1 kg", "mrp": 5800, "tags": ["atta", "wheat", "flour"], "image": null },
+      { "name": "Aashirvaad Shudh Chakki Atta 5kg", "nameTe": "ఆశీర్వాద్ గోధుమ పిండి 5 కేజీ", "brand": "Aashirvaad", "unit": "5 kg", "mrp": 27500, "tags": ["atta", "flour"], "image": null },
+      { "name": "Fortune Sona Masoori Raw Rice", "nameTe": "ఫార్చ్యూన్ సోనా మసూరి బియ్యం", "brand": "Fortune", "unit": "5 kg", "mrp": 34000, "tags": ["rice", "sona masoori"], "image": null },
+      { "name": "Tata Sampann Unpolished Toor Dal", "nameTe": "టాటా సంపన్ కందిపప్పు", "brand": "Tata Sampann", "unit": "1 kg", "mrp": 18500, "tags": ["dal", "toor dal", "pulses"], "image": null },
+      { "name": "Tata Sampann Moong Dal", "nameTe": "టాటా సంపన్ పెసరపప్పు", "brand": "Tata Sampann", "unit": "500 g", "mrp": 9000, "tags": ["dal", "moong"], "image": null },
+      { "name": "Tata Sampann Chana Dal", "nameTe": "టాటా సంపన్ శనగపప్పు", "brand": "Tata Sampann", "unit": "1 kg", "mrp": 12000, "tags": ["dal", "chana"], "image": null },
+      { "name": "Tata Salt Vaccum Evaporated", "nameTe": "టాటా ఉప్పు", "brand": "Tata", "unit": "1 kg", "mrp": 2800, "tags": ["salt", "uppu"], "image": null },
+      { "name": "Madhur Pure & Hygienic Sugar", "nameTe": "మధుర్ స్వచ్ఛమైన పంచదార", "brand": "Madhur", "unit": "1 kg", "mrp": 5500, "tags": ["sugar", "panchadara"], "image": null },
+      { "name": "Rajdhani Besan Flour", "nameTe": "రాజధాని శనగపిండి", "brand": "Rajdhani", "unit": "500 g", "mrp": 6500, "tags": ["besan", "gram flour"], "image": null },
+      { "name": "MTR Roasted Rava", "nameTe": "ఎంటీఆర్ వేయించిన ఉప్మా రవ్వ", "brand": "MTR", "unit": "500 g", "mrp": 4500, "tags": ["rava", "sooji", "upma"], "image": null },
+      { "name": "24 Mantra Organic Idli Rava", "nameTe": "ఇడ్లీ రవ్వ", "brand": "24 Mantra", "unit": "1 kg", "mrp": 6800, "tags": ["idli", "rava"], "image": null },
+      { "name": "Tata Sampann Urad Dal Gota", "nameTe": "టాటా సంపన్ మినప గుండ్లు", "brand": "Tata Sampann", "unit": "1 kg", "mrp": 17500, "tags": ["urad", "minapapappu"], "image": null },
+      { "name": "Daawat Rozana Super Basmati Rice", "nameTe": "దావత్ రోజానా బాస్మతి బియ్యం", "brand": "Daawat", "unit": "1 kg", "mrp": 11000, "tags": ["basmati", "rice"], "image": null },
+      { "name": "Naga Special Maida", "nameTe": "నాగా మైదా", "brand": "Naga", "unit": "500 g", "mrp": 3800, "tags": ["maida", "flour"], "image": null },
+      { "name": "Natureland Organic Kabuli Chana", "nameTe": "కాబూలీ శనగలు", "brand": "Natureland", "unit": "500 g", "mrp": 9500, "tags": ["chana", "chickpeas"], "image": null }
+    ]
+  },
+  {
+    "category": "Snacks",
+    "categoryTe": "స్నాక్స్",
+    "categoryIcon": "Cookie",
+    "products": [
+      { "name": "Lay's India's Magic Masala Chips", "nameTe": "లేస్ మ్యాజిక్ మసాలా", "brand": "Lay's", "unit": "50 g", "mrp": 2000, "tags": ["chips", "snacks", "potato"], "image": null },
+      { "name": "Kurkure Masala Munch Crisps", "nameTe": "కుర్‌కురే మసాలా మంచ్", "brand": "Kurkure", "unit": "85 g", "mrp": 2000, "tags": ["kurkure", "spicy"], "image": null },
+      { "name": "Haldiram's Nagpur Bhujia Sev", "nameTe": "హల్దీరామ్స్ భుజియా సేవ్", "brand": "Haldiram's", "unit": "200 g", "mrp": 6000, "tags": ["sev", "namkeen"], "image": null },
+      { "name": "Haldiram's All In One Mixture", "nameTe": "హల్దీరామ్స్ ఆల్ ఇన్ వన్ మిక్చర్", "brand": "Haldiram's", "unit": "200 g", "mrp": 6000, "tags": ["mixture", "namkeen"], "image": null },
+      { "name": "Bingo Mad Angles Achaari Masti", "nameTe": "బింగో మ్యాడ్ యాంగిల్స్", "brand": "Bingo", "unit": "66 g", "mrp": 2000, "tags": ["bingo", "nachos"], "image": null },
+      { "name": "Lay's American Style Cream & Onion", "nameTe": "లేస్ క్రీమ్ & ఆనియన్", "brand": "Lay's", "unit": "50 g", "mrp": 2000, "tags": ["chips", "onion"], "image": null },
+      { "name": "Haldiram's Salted Moong Dal", "nameTe": "హల్దీరామ్స్ పెసరపప్పు నమ్కీన్", "brand": "Haldiram's", "unit": "200 g", "mrp": 5800, "tags": ["moong dal", "namkeen"], "image": null },
+      { "name": "Balaji Murukku Savoury", "nameTe": "బాలాజీ మురుకులు", "brand": "Balaji", "unit": "150 g", "mrp": 3500, "tags": ["murukku", "crunchy"], "image": null },
+      { "name": "ACT II Butter Lovers Popcorn", "nameTe": "యాక్ట్ 2 పాప్‌కార్న్", "brand": "ACT II", "unit": "85 g", "mrp": 3500, "tags": ["popcorn", "butter"], "image": null },
+      { "name": "Bingo Tedhe Medhe Masala Tadka", "nameTe": "బింగో టేఢే మేఢే", "brand": "Bingo", "unit": "90 g", "mrp": 2000, "tags": ["bingo", "spicy"], "image": null },
+      { "name": "Haldiram's Boondi Plain", "nameTe": "హల్దీరామ్స్ బూందీ", "brand": "Haldiram's", "unit": "200 g", "mrp": 5500, "tags": ["boondi", "namkeen"], "image": null },
+      { "name": "Doritos Sweet Chilli Nachos", "nameTe": "డోరిటోస్ నాచోస్", "brand": "Doritos", "unit": "82 g", "mrp": 4000, "tags": ["nachos", "corn"], "image": null },
+      { "name": "Haldiram's Khatta Meetha Mixture", "nameTe": "ఖట్టా మీఠా మిక్చర్", "brand": "Haldiram's", "unit": "200 g", "mrp": 6000, "tags": ["sweet sour", "mixture"], "image": null },
+      { "name": "Balaji Simply Salted Potato Wafers", "nameTe": "బాలాజీ సాల్టెడ్ వేఫర్స్", "brand": "Balaji", "unit": "60 g", "mrp": 2000, "tags": ["wafers", "salted"], "image": null },
+      { "name": "Bikano Ribbon Pakoda", "nameTe": "బికానో రిబ్బన్ పకోడా", "brand": "Bikano", "unit": "200 g", "mrp": 6500, "tags": ["pakoda", "crispy"], "image": null }
+    ]
+  },
+  {
+    "category": "Beverages",
+    "categoryTe": "పానీయాలు",
+    "categoryIcon": "Coffee",
+    "products": [
+      { "name": "Brooke Bond Red Label Tea", "nameTe": "రెడ్ లేబుల్ టీ పొడి", "brand": "Brooke Bond", "unit": "250 g", "mrp": 14000, "tags": ["tea", "chai"], "image": null },
+      { "name": "Brooke Bond Taj Mahal Tea", "nameTe": "తాజ్ మహల్ టీ", "brand": "Brooke Bond", "unit": "250 g", "mrp": 19500, "tags": ["tea", "premium tea"], "image": null },
+      { "name": "Bru Instant Coffee", "nameTe": "బ్రూ ఇన్‌స్టంట్ కాఫీ", "brand": "Bru", "unit": "100 g", "mrp": 21000, "tags": ["coffee", "instant coffee"], "image": null },
+      { "name": "Nescafe Classic Instant Coffee", "nameTe": "నెస్కేఫే క్లాసిక్ కాఫీ", "brand": "Nescafe", "unit": "50 g", "mrp": 18000, "tags": ["coffee", "nescafe"], "image": null },
+      { "name": "Horlicks Health Drink Classic Malt", "nameTe": "హార్లిక్స్ క్లాసిక్ మాల్ట్", "brand": "Horlicks", "unit": "500 g", "mrp": 26500, "tags": ["horlicks", "health drink"], "image": null },
+      { "name": "Boost Energy Drink", "nameTe": "బూస్ట్ హెల్త్ డ్రింక్", "brand": "Boost", "unit": "500 g", "mrp": 28000, "tags": ["boost", "energy"], "image": null },
+      { "name": "Thums Up Soft Drink Bottle", "nameTe": "థమ్స్ అప్", "brand": "Thums Up", "unit": "750 ml", "mrp": 4500, "tags": ["cold drink", "soda"], "image": null },
+      { "name": "Sprite Lime Flavoured Drink", "nameTe": "స్ప్రైట్", "brand": "Sprite", "unit": "750 ml", "mrp": 4500, "tags": ["sprite", "lime"], "image": null },
+      { "name": "Maaza Mango Drink", "nameTe": "మాజా మామిడి పానీయం", "brand": "Maaza", "unit": "600 ml", "mrp": 4200, "tags": ["maaza", "mango juice"], "image": null },
+      { "name": "Kinley Packaged Drinking Water", "nameTe": "కిన్లే తాగునీరు", "brand": "Kinley", "unit": "1 L", "mrp": 2000, "tags": ["water", "mineral water"], "image": null },
+      { "name": "Tang Instant Drink Mix Orange", "nameTe": "టాంగ్ ఆరెంజ్ డ్రింక్ మిక్స్", "brand": "Tang", "unit": "500 g", "mrp": 14500, "tags": ["tang", "juice mix"], "image": null },
+      { "name": "Rasna Fruit Plus Mango Powder", "nameTe": "రస్నా మ్యాంగో", "brand": "Rasna", "unit": "500 g", "mrp": 12000, "tags": ["rasna", "summer drink"], "image": null },
+      { "name": "Red Bull Energy Drink Can", "nameTe": "రెడ్ బుల్ ఎనర్జీ డ్రింక్", "brand": "Red Bull", "unit": "250 ml", "mrp": 12500, "tags": ["energy drink"], "image": null },
+      { "name": "Frooti Fresh Mango Drink", "nameTe": "ఫ్రూటీ", "brand": "Frooti", "unit": "600 ml", "mrp": 4000, "tags": ["frooti", "mango"], "image": null },
+      { "name": "Wagh Bakri Premium Leaf Tea", "nameTe": "వాఘ్ బక్రీ లీఫ్ టీ", "brand": "Wagh Bakri", "unit": "250 g", "mrp": 14500, "tags": ["tea", "leaf tea"], "image": null }
+    ]
+  },
+  {
+    "category": "Oils",
+    "categoryTe": "నూనెలు",
+    "categoryIcon": "Droplet",
+    "products": [
+      { "name": "Freedom Refined Sunflower Oil", "nameTe": "ఫ్రీడమ్ సన్‌ఫ్లవర్ నూనె", "brand": "Freedom", "unit": "1 L", "mrp": 13500, "tags": ["oil", "sunflower oil", "cooking"], "image": null },
+      { "name": "Gold Winner Refined Sunflower Oil", "nameTe": "గోల్డ్ విన్నర్ సూర్యకాంతి నూనె", "brand": "Gold Winner", "unit": "1 L", "mrp": 13800, "tags": ["oil", "cooking"], "image": null },
+      { "name": "Fortune Sunlite Sunflower Oil", "nameTe": "ఫార్చ్యూన్ సన్‌లైట్ నూనె", "brand": "Fortune", "unit": "1 L", "mrp": 14000, "tags": ["oil", "sunflower"], "image": null },
+      { "name": "Gemini Refined Sunflower Oil", "nameTe": "జెమిని సన్‌ఫ్లవర్ నూనె", "brand": "Gemini", "unit": "1 L", "mrp": 13600, "tags": ["oil", "sunflower"], "image": null },
+      { "name": "Idhayam Pure Sesame Gingelly Oil", "nameTe": "ఇదయం నువ్వుల నూనె", "brand": "Idhayam", "unit": "500 ml", "mrp": 21000, "tags": ["sesame oil", "gingelly"], "image": null },
+      { "name": "Parachute 100% Pure Coconut Oil", "nameTe": "పారాషూట్ కొబ్బరి నూనె", "brand": "Parachute", "unit": "250 ml", "mrp": 10500, "tags": ["coconut oil", "hair oil"], "image": null },
+      { "name": "Dhara Kachi Ghani Mustard Oil", "nameTe": "ధార ఆవనూనె", "brand": "Dhara", "unit": "1 L", "mrp": 16500, "tags": ["mustard oil", "cooking"], "image": null },
+      { "name": "Fortune Pure Mustard Oil", "nameTe": "ఫార్చ్యూన్ ఆవనూనె", "brand": "Fortune", "unit": "1 L", "mrp": 16000, "tags": ["mustard oil"], "image": null },
+      { "name": "Saffola Gold Pro Healthy Oil", "nameTe": "సఫోలా గోల్డ్ నూనె", "brand": "Saffola", "unit": "1 L", "mrp": 17500, "tags": ["cooking oil", "healthy"], "image": null },
+      { "name": "GRB Pure Cow Ghee", "nameTe": "జిఆర్బి ఆవు నెయ్యి", "brand": "GRB", "unit": "200 ml", "mrp": 18500, "tags": ["ghee", "cow ghee"], "image": null },
+      { "name": "Vijaya Pure Ghee Jar", "nameTe": "విజయ స్వచ్ఛమైన నెయ్యి", "brand": "Vijaya", "unit": "500 ml", "mrp": 38000, "tags": ["ghee", "pure ghee"], "image": null },
+      { "name": "Heritage Cow Ghee Pouch", "nameTe": "హెరిటేజ్ ఆవు నెయ్యి", "brand": "Heritage", "unit": "500 ml", "mrp": 39500, "tags": ["ghee", "heritage"], "image": null },
+      { "name": "Priya Pure Filtered Groundnut Oil", "nameTe": "ప్రియ వేరుశనగ నూనె", "brand": "Priya", "unit": "1 L", "mrp": 18500, "tags": ["groundnut oil", "peanut oil"], "image": null },
+      { "name": "Fortune Filtered Groundnut Oil", "nameTe": "ఫార్చ్యూన్ వేరుశనగ నూనె", "brand": "Fortune", "unit": "1 L", "mrp": 19000, "tags": ["groundnut oil"], "image": null },
+      { "name": "Dalda Vanaspati Pouch", "nameTe": "డాల్డా వనస్పతి", "brand": "Dalda", "unit": "500 ml", "mrp": 7500, "tags": ["vanaspati", "dalda"], "image": null }
+    ]
+  },
+  {
+    "category": "Spices",
+    "categoryTe": "మసాలాలు",
+    "categoryIcon": "Flame",
+    "products": [
+      { "name": "Everest Tikhalal Red Chilli Powder", "nameTe": "ఎవరెస్ట్ కారం పొడి", "brand": "Everest", "unit": "200 g", "mrp": 9500, "tags": ["chilli", "mirchi powder", "spices"], "image": null },
+      { "name": "Everest Turmeric Powder Haldi", "nameTe": "ఎవరెస్ట్ పసుపు పొడి", "brand": "Everest", "unit": "200 g", "mrp": 7000, "tags": ["turmeric", "haldi", "pasupu"], "image": null },
+      { "name": "Everest Coriander Powder Dhaniya", "nameTe": "ఎవరెస్ట్ ధనియాల పొడి", "brand": "Everest", "unit": "200 g", "mrp": 6500, "tags": ["coriander", "dhaniya"], "image": null },
+      { "name": "Aachi Garam Masala Powder", "nameTe": "ఆచి గరం మసాలా", "brand": "Aachi", "unit": "100 g", "mrp": 4800, "tags": ["garam masala", "masala"], "image": null },
+      { "name": "Aachi Chicken Masala", "nameTe": "ఆచి చికెన్ మసాలా", "brand": "Aachi", "unit": "100 g", "mrp": 4500, "tags": ["chicken masala"], "image": null },
+      { "name": "Aachi Mutton Masala", "nameTe": "ఆచి మటన్ మసాలా", "brand": "Aachi", "unit": "100 g", "mrp": 5000, "tags": ["mutton masala"], "image": null },
+      { "name": "Everest Sambar Masala", "nameTe": "ఎవరెస్ట్ సాంబార్ మసాలా", "brand": "Everest", "unit": "100 g", "mrp": 4500, "tags": ["sambar powder"], "image": null },
+      { "name": "MTR Special Rasam Powder", "nameTe": "ఎంటీఆర్ రసం పొడి", "brand": "MTR", "unit": "100 g", "mrp": 4800, "tags": ["rasam powder"], "image": null },
+      { "name": "Priya Ginger Garlic Paste Pouch", "nameTe": "ప్రియ అల్లం వెల్లుల్లి పేస్ట్", "brand": "Priya", "unit": "200 g", "mrp": 4500, "tags": ["ginger garlic", "paste"], "image": null },
+      { "name": "Priya Mango Pickle with Garlic", "nameTe": "ప్రియ వెల్లుల్లి ఆవకాయ పచ్చడి", "brand": "Priya", "unit": "300 g", "mrp": 9500, "tags": ["pickle", "avakaya", "pachadi"], "image": null },
+      { "name": "Priya Tomato Pickle", "nameTe": "ప్రియ టమోటా పచ్చడి", "brand": "Priya", "unit": "300 g", "mrp": 9000, "tags": ["tomato pickle"], "image": null },
+      { "name": "Priya Gongura Pickle", "nameTe": "ప్రియ గోంగూర పచ్చడి", "brand": "Priya", "unit": "300 g", "mrp": 9500, "tags": ["gongura", "andhra pickle"], "image": null },
+      { "name": "Catch Whole Cumin Seeds Jeera", "nameTe": "క్యాచ్ జీలకర్ర", "brand": "Catch", "unit": "100 g", "mrp": 7800, "tags": ["jeera", "cumin"], "image": null },
+      { "name": "Catch Black Mustard Seeds Rai", "nameTe": "క్యాచ్ ఆవాలు", "brand": "Catch", "unit": "100 g", "mrp": 3200, "tags": ["mustard", "aavalu"], "image": null },
+      { "name": "MDH Kasuri Methi Leaves", "nameTe": "ఎండిహెచ్ కసూరి మేథి", "brand": "MDH", "unit": "100 g", "mrp": 7200, "tags": ["fenugreek", "kasuri methi"], "image": null }
+    ]
+  },
+  {
+    "category": "Personal care",
+    "categoryTe": "వ్యక్తిగత సంరక్షణ",
+    "categoryIcon": "Sparkles",
+    "products": [
+      { "name": "Lifebuoy Total Germ Protection Soap", "nameTe": "లైఫ్‌బాయ్ సబ్బు", "brand": "Lifebuoy", "unit": "125 g", "mrp": 3600, "tags": ["soap", "bathing soap"], "image": null },
+      { "name": "Dettol Original Bathing Soap", "nameTe": "డెట్టాల్ స్నానపు సబ్బు", "brand": "Dettol", "unit": "125 g", "mrp": 5500, "tags": ["soap", "dettol"], "image": null },
+      { "name": "Lux Velvet Glow Jasmine Soap", "nameTe": "లక్స్ సబ్బు", "brand": "Lux", "unit": "100 g", "mrp": 3800, "tags": ["soap", "lux"], "image": null },
+      { "name": "Dove White Beauty Bathing Bar", "nameTe": "డవ్ బ్యూటీ బార్", "brand": "Dove", "unit": "100 g", "mrp": 6500, "tags": ["dove", "soap"], "image": null },
+      { "name": "Colgate Strong Teeth Dental Paste", "nameTe": "కోల్గేట్ టూత్‌పేస్ట్", "brand": "Colgate", "unit": "150 g", "mrp": 9800, "tags": ["toothpaste", "colgate"], "image": null },
+      { "name": "Close Up Everfresh Red Hot Gel", "nameTe": "క్లోజప్ రెడ్ హాట్", "brand": "Close Up", "unit": "150 g", "mrp": 9500, "tags": ["toothpaste", "gel"], "image": null },
+      { "name": "Head & Shoulders Anti-Dandruff Shampoo", "nameTe": "హెడ్ & షోల్డర్స్ షాంపూ", "brand": "Head & Shoulders", "unit": "180 ml", "mrp": 18000, "tags": ["shampoo"], "image": null },
+      { "name": "Clinic Plus Strong & Long Shampoo", "nameTe": "క్లినిక్ ప్లస్ షాంపూ", "brand": "Clinic Plus", "unit": "175 ml", "mrp": 12000, "tags": ["shampoo"], "image": null },
+      { "name": "Sunsilk Black Shine Shampoo", "nameTe": "సన్‌సిల్క్ బ్లాక్ షైన్ షాంపూ", "brand": "Sunsilk", "unit": "180 ml", "mrp": 13500, "tags": ["shampoo"], "image": null },
+      { "name": "Parachute Advansed Jasmine Hair Oil", "nameTe": "పారాషూట్ జాస్మిన్ హెయిర్ ఆయిల్", "brand": "Parachute", "unit": "190 ml", "mrp": 9000, "tags": ["hair oil"], "image": null },
+      { "name": "Nivea Soft Light Moisturiser Cream", "nameTe": "నివియా మాయిశ్చరైజర్", "brand": "Nivea", "unit": "100 ml", "mrp": 19500, "tags": ["cream", "face"], "image": null },
+      { "name": "Pond's Dreamflower Talcum Powder", "nameTe": "పాండ్స్ టాల్కమ్ పౌడర్", "brand": "Pond's", "unit": "100 g", "mrp": 8500, "tags": ["powder", "talc"], "image": null },
+      { "name": "Gillette Guard Safety Razor", "nameTe": "జిల్లెట్ గార్డ్ రేజర్", "brand": "Gillette", "unit": "1 pc", "mrp": 2500, "tags": ["shaving", "razor"], "image": null },
+      { "name": "Whisper Choice Ultra Sanitary Pads", "nameTe": "విస్పర్ శానిటరీ ప్యాడ్స్", "brand": "Whisper", "unit": "6 pads", "mrp": 4500, "tags": ["pads", "hygiene"], "image": null },
+      { "name": "Dettol Liquid Handwash Refill", "nameTe": "డెట్టాల్ లిక్విడ్ హ్యాండ్‌వాష్", "brand": "Dettol", "unit": "175 ml", "mrp": 4500, "tags": ["handwash"], "image": null }
+    ]
+  },
+  {
+    "category": "Household",
+    "categoryTe": "ఇంటి అవసరాలు",
+    "categoryIcon": "Home",
+    "products": [
+      { "name": "Surf Excel Easy Wash Detergent Powder", "nameTe": "సర్ఫ్ ఎక్సెల్ ఈజీ వాష్ పౌడర్", "brand": "Surf Excel", "unit": "1 kg", "mrp": 14000, "tags": ["detergent", "surf"], "image": null },
+      { "name": "Ariel Complete Detergent Powder", "nameTe": "ఏరియల్ డిటర్జెంట్ పౌడర్", "brand": "Ariel", "unit": "1 kg", "mrp": 17500, "tags": ["detergent", "ariel"], "image": null },
+      { "name": "Rin Advanced Detergent Soap Bar", "nameTe": "రిన్ బట్టల సబ్బు", "brand": "Rin", "unit": "250 g", "mrp": 2200, "tags": ["washing soap", "rin"], "image": null },
+      { "name": "Vim Dishwash Bar with Lemon", "nameTe": "విమ్ డిష్‌వాష్ బార్", "brand": "Vim", "unit": "300 g", "mrp": 3000, "tags": ["dishwash", "utensils"], "image": null },
+      { "name": "Vim Dishwash Gel Lemon Bottle", "nameTe": "విమ్ లిక్విడ్ జెల్", "brand": "Vim", "unit": "250 ml", "mrp": 6000, "tags": ["dishwash gel"], "image": null },
+      { "name": "Harpic Power Plus Disinfectant Toilet Cleaner", "nameTe": "హార్పిక్ టాయిలెట్ క్లీనర్", "brand": "Harpic", "unit": "500 ml", "mrp": 9900, "tags": ["toilet cleaner"], "image": null },
+      { "name": "Lizol Disinfectant Surface Cleaner Citrus", "nameTe": "లైజాల్ ఫ్లోర్ క్లీనర్", "brand": "Lizol", "unit": "500 ml", "mrp": 11000, "tags": ["floor cleaner"], "image": null },
+      { "name": "Goodknight Gold Flash Mosquito Liquid Refill", "nameTe": "గుడ్‌నైట్ లిక్విడ్ రీఫిల్", "brand": "Goodknight", "unit": "45 ml", "mrp": 8500, "tags": ["mosquito", "repellent"], "image": null },
+      { "name": "All Out Ultra Mosquito Vaporizer Refill", "nameTe": "ఆల్ అవుట్ రీఫిల్", "brand": "All Out", "unit": "45 ml", "mrp": 8200, "tags": ["mosquito"], "image": null },
+      { "name": "Odonil Room Air Freshener Jasmine Block", "nameTe": "ఒడోనిల్ రూమ్ ఫ్రెషనర్", "brand": "Odonil", "unit": "50 g", "mrp": 5500, "tags": ["air freshener"], "image": null },
+      { "name": "Scotch-Brite Scrub Sponge", "nameTe": "స్కాచ్ బ్రైట్ స్క్రబ్ స్పాంజ్", "brand": "Scotch-Brite", "unit": "1 pc", "mrp": 3500, "tags": ["sponge", "scrubber"], "image": null },
+      { "name": "Comfort After Wash Fabric Conditioner Lily", "nameTe": "కంఫర్ట్ ఫ్యాబ్రిక్ కండిషనర్", "brand": "Comfort", "unit": "220 ml", "mrp": 6000, "tags": ["fabric conditioner"], "image": null },
+      { "name": "Colin Glass and Surface Cleaner Spray", "nameTe": "కోలిన్ గ్లాస్ క్లీనర్", "brand": "Colin", "unit": "500 ml", "mrp": 10500, "tags": ["glass cleaner"], "image": null },
+      { "name": "Hit Flying Insect Killer Spray Lime", "nameTe": "హిట్ మస్కిటో స్ప్రే", "brand": "Hit", "unit": "320 ml", "mrp": 15000, "tags": ["insect spray"], "image": null },
+      { "name": "Mangaldeep Chandan Sandalwood Agarbatti", "nameTe": "మంగళదీప్ చందనం అగరబత్తీలు", "brand": "Mangaldeep", "unit": "100 sticks", "mrp": 6000, "tags": ["agarbatti", "puja"], "image": null }
+    ]
+  },
+  {
+    "category": "Biscuits",
+    "categoryTe": "బిస్కెట్లు",
+    "categoryIcon": "Cake",
+    "products": [
+      { "name": "Parle-G Original Glucose Biscuits", "nameTe": "పార్లే-జి గ్లూకోజ్ బిస్కెట్లు", "brand": "Parle", "unit": "250 g", "mrp": 3000, "tags": ["biscuits", "parle-g"], "image": null },
+      { "name": "Britannia Good Day Butter Cookies", "nameTe": "బ్రిటానియా గుడ్ డే బటర్ కుకీస్", "brand": "Britannia", "unit": "200 g", "mrp": 4500, "tags": ["cookies", "butter"], "image": null },
+      { "name": "Britannia Good Day Cashew Cookies", "nameTe": "బ్రిటానియా గుడ్ డే జీడిపప్పు బిస్కెట్లు", "brand": "Britannia", "unit": "200 g", "mrp": 5000, "tags": ["cookies", "cashew"], "image": null },
+      { "name": "Britannia Marie Gold Tea Biscuits", "nameTe": "బ్రిటానియా మేరీ గోల్డ్ బిస్కెట్లు", "brand": "Britannia", "unit": "250 g", "mrp": 3500, "tags": ["marie", "tea biscuits"], "image": null },
+      { "name": "Sunfeast Dark Fantasy Choco Fills", "nameTe": "డార్క్ ఫాంటసీ చాకో ఫిల్స్", "brand": "Sunfeast", "unit": "75 g", "mrp": 4000, "tags": ["chocolate", "biscuit"], "image": null },
+      { "name": "Oreo Original Vanilla Creme Sandwich Biscuits", "nameTe": "ఓరియో వెనీలా బిస్కెట్లు", "brand": "Oreo", "unit": "120 g", "mrp": 3500, "tags": ["oreo", "creme"], "image": null },
+      { "name": "Britannia Bourbon Chocolate Cream Biscuits", "nameTe": "బోర్బన్ చాక్లెట్ బిస్కెట్లు", "brand": "Britannia", "unit": "150 g", "mrp": 3500, "tags": ["bourbon", "chocolate"], "image": null },
+      { "name": "Parle Monaco Salted Classic Crackers", "nameTe": "పార్లే మొనాకో సాల్టెడ్ బిస్కెట్లు", "brand": "Parle", "unit": "200 g", "mrp": 4000, "tags": ["monaco", "salted"], "image": null },
+      { "name": "Parle Krackjack Sweet & Salty Crackers", "nameTe": "క్రాక్‌జాక్ బిస్కెట్లు", "brand": "Parle", "unit": "200 g", "mrp": 4000, "tags": ["krackjack"], "image": null },
+      { "name": "Britannia Milk Bikis Biscuits", "nameTe": "మిల్క్ బికిస్ బిస్కెట్లు", "brand": "Britannia", "unit": "200 g", "mrp": 4000, "tags": ["milk bikis"], "image": null },
+      { "name": "Britannia Little Hearts Biscuits", "nameTe": "లిటిల్ హార్ట్స్ బిస్కెట్లు", "brand": "Britannia", "unit": "75 g", "mrp": 2500, "tags": ["little hearts"], "image": null },
+      { "name": "Britannia Treat Jim Jam Cream Biscuits", "nameTe": "జిమ్ జామ్ బిస్కెట్లు", "brand": "Britannia", "unit": "138 g", "mrp": 3500, "tags": ["jim jam"], "image": null },
+      { "name": "Sunfeast Mom's Magic Cashew & Almond", "nameTe": "సన్‌ఫీస్ట్ మామ్స్ మ్యాజిక్", "brand": "Sunfeast", "unit": "200 g", "mrp": 4500, "tags": ["cookies"], "image": null },
+      { "name": "Britannia Fruit Cake Slice", "nameTe": "బ్రిటానియా ఫ్రూట్ కేక్", "brand": "Britannia", "unit": "140 g", "mrp": 4500, "tags": ["cake", "bakery"], "image": null },
+      { "name": "Britannia Premium Baked Rusk", "nameTe": "బ్రిటానియా ప్రీమియం రస్క్", "brand": "Britannia", "unit": "200 g", "mrp": 4000, "tags": ["rusk", "toast"], "image": null }
+    ]
+  },
+  {
+    "category": "Breakfast",
+    "categoryTe": "అల్పాహారం",
+    "categoryIcon": "Utensils",
+    "products": [
+      { "name": "Kellogg's Corn Flakes Original", "nameTe": "కెల్లాగ్స్ కార్న్ ఫ్లేక్స్", "brand": "Kellogg's", "unit": "250 g", "mrp": 11000, "tags": ["corn flakes", "cereal"], "image": null },
+      { "name": "Kellogg's Chocos Crunchy Cereal", "nameTe": "కెల్లాగ్స్ చాకోస్", "brand": "Kellogg's", "unit": "250 g", "mrp": 12500, "tags": ["chocos", "breakfast"], "image": null },
+      { "name": "Quaker Oats 100% Whole Grain", "nameTe": "క్వేకర్ ఓట్స్", "brand": "Quaker", "unit": "400 g", "mrp": 8500, "tags": ["oats", "healthy"], "image": null },
+      { "name": "Saffola Masala Oats Classic Masala", "nameTe": "సఫోలా మసాలా ఓట్స్", "brand": "Saffola", "unit": "400 g", "mrp": 16000, "tags": ["masala oats"], "image": null },
+      { "name": "Maggi 2-Minute Instant Masala Noodles", "nameTe": "మ్యాగీ 2-మినిట్ నూడుల్స్", "brand": "Maggi", "unit": "280 g", "mrp": 5600, "tags": ["maggi", "noodles"], "image": null },
+      { "name": "Yippee! Magic Masala Instant Noodles", "nameTe": "యిప్పీ మ్యాజిక్ మసాలా నూడుల్స్", "brand": "Sunfeast Yippee", "unit": "240 g", "mrp": 5200, "tags": ["yippee", "noodles"], "image": null },
+      { "name": "Kissan Mixed Fruit Sweet Jam", "nameTe": "కిసాన్ మిక్స్‌డ్ ఫ్రూట్ జామ్", "brand": "Kissan", "unit": "200 g", "mrp": 7500, "tags": ["jam", "fruit jam"], "image": null },
+      { "name": "Kissan Fresh Tomato Ketchup Bottle", "nameTe": "కిసాన్ టమోటా కెచప్", "brand": "Kissan", "unit": "500 g", "mrp": 11500, "tags": ["ketchup", "sauce"], "image": null },
+      { "name": "Maggi Hot & Sweet Tomato Chilli Sauce", "nameTe": "మ్యాగీ హాట్ & స్వీట్ సాస్", "brand": "Maggi", "unit": "500 g", "mrp": 12500, "tags": ["sauce"], "image": null },
+      { "name": "MTR Ready Instant Idli Mix", "nameTe": "ఎంటీఆర్ ఇన్‌స్టంట్ ఇడ్లీ మిక్స్", "brand": "MTR", "unit": "500 g", "mrp": 8000, "tags": ["idli mix", "breakfast"], "image": null },
+      { "name": "MTR Ready Instant Dosa Mix", "nameTe": "ఎంటీఆర్ దోశ మిక్స్", "brand": "MTR", "unit": "500 g", "mrp": 8500, "tags": ["dosa mix"], "image": null },
+      { "name": "MTR Ready Instant Upma Mix", "nameTe": "ఎంటీఆర్ ఉప్మా మిక్స్", "brand": "MTR", "unit": "500 g", "mrp": 7500, "tags": ["upma mix"], "image": null },
+      { "name": "Bambino Roasted Vermicelli", "nameTe": "బాంబినో రోస్టెడ్ సేమియా", "brand": "Bambino", "unit": "400 g", "mrp": 4800, "tags": ["vermicelli", "semiya"], "image": null },
+      { "name": "Priya Instant Pulihora Paste", "nameTe": "ప్రియ పులిహోర పేస్ట్", "brand": "Priya", "unit": "100 g", "mrp": 3500, "tags": ["pulihora", "paste"], "image": null },
+      { "name": "Kellogg's Muesli with Fruit Magic & Nuts", "nameTe": "కెల్లాగ్స్ మ్యూస్లీ", "brand": "Kellogg's", "unit": "500 g", "mrp": 31000, "tags": ["muesli", "cereal"], "image": null }
+    ]
+  }
+]
