@@ -382,7 +382,7 @@ export const OrderDetail = () => {
                   className="flex justify-between text-amber-950 font-medium line-through"
                 >
                   <span>
-                    {item.nameTe || item.name} ({item.qty} {item.unit})
+                    {isTe && item.nameTe ? item.nameTe : item.name} ({item.qty} {item.unit})
                   </span>
                   <span>{formatPaise(item.price * item.qty)}</span>
                 </div>
@@ -558,11 +558,8 @@ export const OrderDetail = () => {
               >
                 <div className="min-w-0 flex-1 pr-2">
                   <p className="font-extrabold text-ink-900 leading-snug line-clamp-1">
-                    {item.nameTe || item.name}
+                    {isTe && item.nameTe ? item.nameTe : item.name}
                   </p>
-                  {item.nameTe && item.name && (
-                    <p className="text-[11px] text-ink-500 truncate">{item.name}</p>
-                  )}
                   <p className="text-[11px] text-ink-400 mt-0.5">
                     {item.qty} × {formatPaise(item.price)} ({item.unit})
                     {!isAvailable && (

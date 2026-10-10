@@ -43,7 +43,8 @@ const getCategoryIconComponent = (iconName) => {
 };
 
 export const Catalogue = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isTe = i18n.language?.startsWith('te');
   const { showToast } = useToast();
 
   const [activeTab, setActiveTab] = useState('products'); // 'products' | 'categories'
@@ -347,8 +348,12 @@ export const Catalogue = () => {
       header: t('catalogue.nameEn'),
       render: (prod) => (
         <div>
-          <div className="font-semibold text-ink-900 leading-snug">{prod.name}</div>
-          <div className="text-xs text-ink-600 font-sans lang-te mt-0.5">{prod.nameTe}</div>
+          <div className="font-semibold text-ink-900 leading-snug">
+            {isTe && prod.nameTe ? prod.nameTe : prod.name}
+          </div>
+          {isTe && prod.nameTe && prod.name && (
+            <div className="text-xs text-ink-600 font-sans lang-te mt-0.5">{prod.name}</div>
+          )}
         </div>
       ),
     },
@@ -362,7 +367,8 @@ export const Catalogue = () => {
       header: t('catalogue.category'),
       render: (prod) => (
         <Badge variant="accepted" className="text-[11px]">
-          {prod.category?.name || 'Uncategorized'}
+          {(isTe && prod.category?.nameTe ? prod.category.nameTe : prod.category?.name) ||
+            'Uncategorized'}
         </Badge>
       ),
     },
@@ -436,8 +442,12 @@ export const Catalogue = () => {
       header: t('catalogue.nameEn'),
       render: (cat) => (
         <div>
-          <span className="font-semibold text-ink-900">{cat.name}</span>
-          <span className="text-xs text-ink-600 block lang-te">{cat.nameTe}</span>
+          <span className="font-semibold text-ink-900">
+            {isTe && cat.nameTe ? cat.nameTe : cat.name}
+          </span>
+          {isTe && cat.nameTe && cat.name && (
+            <span className="text-xs text-ink-600 block lang-te">{cat.name}</span>
+          )}
         </div>
       ),
     },
@@ -568,7 +578,7 @@ export const Catalogue = () => {
                 <option value="">{t('catalogue.allCategories')}</option>
                 {categories.map((c) => (
                   <option key={c._id} value={c._id}>
-                    {c.name} ({c.nameTe})
+                    {isTe && c.nameTe ? c.nameTe : c.name}
                   </option>
                 ))}
               </select>

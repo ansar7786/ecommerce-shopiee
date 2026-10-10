@@ -24,7 +24,8 @@ const resolveIcon = (name) => {
 };
 
 export const StoreProducts = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isTe = i18n.language?.startsWith('te');
   const navigate = useNavigate();
   const { addToast } = useToast();
 
@@ -246,7 +247,7 @@ export const StoreProducts = () => {
               }`}
             >
               <IconComponent className="w-3.5 h-3.5" />
-              <span>{c.nameTe || c.name}</span>
+              <span>{isTe && c.nameTe ? c.nameTe : c.name}</span>
             </button>
           );
         })}
@@ -340,7 +341,7 @@ export const StoreProducts = () => {
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <h3 className="text-sm font-bold text-ink-900 leading-snug truncate">
-                        {nameTe || name}
+                        {isTe && nameTe ? nameTe : name}
                       </h3>
                       {!p.inStock && (
                         <Badge variant="rejected" className="text-[10px] py-0 px-1.5">
@@ -348,7 +349,6 @@ export const StoreProducts = () => {
                         </Badge>
                       )}
                     </div>
-                    {nameTe && <p className="text-xs text-ink-600 truncate">{name}</p>}
 
                     <div className="flex items-center gap-2 mt-0.5 text-xs text-ink-500">
                       <span>{brand}</span>
@@ -429,9 +429,9 @@ export const StoreProducts = () => {
             <div>
               <span className="text-xs font-semibold text-ink-500 block">Product</span>
               <p className="text-sm font-bold text-ink-900">
-                {editProduct.masterProduct?.nameTe ||
-                  editProduct.customName ||
-                  editProduct.masterProduct?.name}
+                {isTe && editProduct.masterProduct?.nameTe
+                  ? editProduct.masterProduct.nameTe
+                  : editProduct.customName || editProduct.masterProduct?.name || editProduct.name}
               </p>
               <p className="text-xs text-ink-600">MRP: {formatPaise(editProduct.mrp)}</p>
             </div>
@@ -496,7 +496,7 @@ export const StoreProducts = () => {
             <option value="">-- Choose Category --</option>
             {categories.map((c) => (
               <option key={c._id} value={c._id}>
-                {c.name} ({c.nameTe})
+                {isTe && c.nameTe ? c.nameTe : c.name}
               </option>
             ))}
           </select>

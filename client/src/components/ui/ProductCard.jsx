@@ -6,10 +6,14 @@ import { QuantityStepper } from './QuantityStepper';
 import { formatPaise } from '../../utils/format';
 
 export const ProductCard = ({ product, quantity = 0, onAdd, onUpdateQty }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isTe = i18n.language === 'te';
 
   const isOutOfStock = !product.inStock;
   const savings = Math.max(0, (product.mrp || product.price) - product.price);
+  const displayName = isTe && product.nameTe ? product.nameTe : product.name;
+  const categoryName =
+    isTe && product.category?.nameTe ? product.category.nameTe : product.category?.name || '';
 
   return (
     <Card
@@ -33,7 +37,7 @@ export const ProductCard = ({ product, quantity = 0, onAdd, onUpdateQty }) => {
             <div className="flex flex-col items-center justify-center text-primary-600">
               <Package className="w-8 h-8 stroke-[1.8]" />
               <span className="text-[10px] font-bold text-center mt-1 text-ink-500 line-clamp-1">
-                {product.category?.nameTe || product.category?.name || ''}
+                {categoryName}
               </span>
             </div>
           )}
@@ -58,11 +62,8 @@ export const ProductCard = ({ product, quantity = 0, onAdd, onUpdateQty }) => {
         {/* Product Details */}
         <div className="mt-2.5">
           <h3 className="text-sm font-bold text-ink-900 leading-snug line-clamp-1">
-            {product.nameTe || product.name}
+            {displayName}
           </h3>
-          {product.nameTe && product.name && (
-            <p className="text-xs text-ink-500 truncate mt-0.5">{product.name}</p>
-          )}
           <p className="text-[11px] font-medium text-ink-500 mt-1">{product.unit || '1 pc'}</p>
         </div>
       </div>

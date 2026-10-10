@@ -9,14 +9,20 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const applyUserLanguage = (userObj) => {
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('kirana_language') : null;
+    const targetLang = saved || userObj?.language || 'en';
+    if (i18n.language !== targetLang) {
+      i18n.changeLanguage(targetLang);
+    }
+  };
+
   const refreshUser = useCallback(async () => {
     try {
       const res = await api.get('/auth/me');
       if (res.data?.success && res.data?.user) {
         setUser(res.data.user);
-        if (res.data.user.language && i18n.language !== res.data.user.language) {
-          i18n.changeLanguage(res.data.user.language);
-        }
+        applyUserLanguage(res.data.user);
         return res.data.user;
       }
       setUser(null);
@@ -37,9 +43,7 @@ export const AuthProvider = ({ children }) => {
     const res = await api.post('/auth/google', { credential, intent });
     if (res.data?.success && res.data?.user) {
       setUser(res.data.user);
-      if (res.data.user.language) {
-        i18n.changeLanguage(res.data.user.language);
-      }
+      applyUserLanguage(res.data.user);
       return res.data.user;
     }
     throw new Error('Google login failed');
@@ -49,9 +53,7 @@ export const AuthProvider = ({ children }) => {
     const res = await api.post('/auth/demo', { role });
     if (res.data?.success && res.data?.user) {
       setUser(res.data.user);
-      if (res.data.user.language) {
-        i18n.changeLanguage(res.data.user.language);
-      }
+      applyUserLanguage(res.data.user);
       return res.data.user;
     }
     throw new Error('Demo login failed');

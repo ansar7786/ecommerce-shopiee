@@ -488,11 +488,8 @@ export const StoreOrderDetail = () => {
                 {/* Item description */}
                 <div className="min-w-0 flex-1">
                   <p className="font-extrabold text-sm text-ink-900 leading-snug">
-                    {item.nameTe || item.name}
+                    {isTe && item.nameTe ? item.nameTe : item.name}
                   </p>
-                  {item.nameTe && item.name && (
-                    <p className="text-[11px] text-ink-500 truncate">{item.name}</p>
-                  )}
                   <p className="text-xs text-ink-600 font-semibold mt-0.5">
                     {item.qty} {item.unit} • {formatPaise(item.price * item.qty)}
                   </p>
@@ -578,7 +575,9 @@ export const StoreOrderDetail = () => {
           <div className="p-3 bg-amber-50 border border-amber-200 rounded-2xl text-xs text-amber-900 flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold">{selectedItem?.nameTe || selectedItem?.name}</p>
+              <p className="font-bold">
+                {isTe && selectedItem?.nameTe ? selectedItem.nameTe : selectedItem?.name || ''}
+              </p>
               <p className="mt-1 text-[11px] text-amber-800 leading-snug">
                 {isTe
                   ? 'ఈ వస్తువును అందుబాటులో లేదని గుర్తు చేస్తే, ఆర్డర్ మొత్తం తగ్గి కస్టమర్ నిర్ధారణ కోసం పంపబడుతుంది (10 నిమిషాలు).'

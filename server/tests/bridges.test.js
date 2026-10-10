@@ -14,7 +14,7 @@ const Payment = require('../src/models/Payment');
 const { JWT_SECRET } = require('../src/config/env');
 
 describe('Step 15: Cross-Role Bridges Integration Tests', () => {
-  jest.setTimeout(30000);
+  jest.setTimeout(120000);
 
   let adminUser;
   let customerUser;

@@ -22,7 +22,8 @@ import { Button, QuantityStepper, EmptyState, Card } from '../../components/ui';
 import { formatPaise } from '../../utils/format';
 
 export const Cart = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isTe = i18n.language === 'te';
   const navigate = useNavigate();
   const {
     cartStore,
@@ -311,11 +312,8 @@ export const Cart = () => {
                 {/* Info */}
                 <div className="flex-1 min-w-0">
                   <h4 className="text-sm font-bold text-ink-900 leading-snug line-clamp-1">
-                    {item.nameTe || item.name}
+                    {isTe && item.nameTe ? item.nameTe : item.name}
                   </h4>
-                  {item.nameTe && item.name && (
-                    <p className="text-xs text-ink-500 truncate">{item.name}</p>
-                  )}
                   <p className="text-[11px] text-ink-400 font-medium mt-0.5">{item.unit}</p>
 
                   {/* Price info */}

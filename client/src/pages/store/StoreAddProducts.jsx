@@ -14,6 +14,7 @@ const resolveIcon = (name) => {
 
 export const StoreAddProducts = () => {
   const { t, i18n } = useTranslation();
+  const isTe = i18n.language?.startsWith('te');
   const navigate = useNavigate();
   const { addToast } = useToast();
 
@@ -279,7 +280,7 @@ export const StoreAddProducts = () => {
               }`}
             >
               <IconComponent className="w-3.5 h-3.5" />
-              <span>{c.nameTe || c.name}</span>
+              <span>{isTe && c.nameTe ? c.nameTe : c.name}</span>
             </button>
           );
         })}
@@ -344,7 +345,7 @@ export const StoreAddProducts = () => {
                       <div className="flex flex-col items-center justify-center text-primary-700">
                         <IconComp className="w-6 h-6" />
                         <span className="text-[8px] font-bold mt-0.5 truncate max-w-[45px]">
-                          {p.category?.nameTe || p.category?.name}
+                          {isTe && p.category?.nameTe ? p.category.nameTe : p.category?.name || ''}
                         </span>
                       </div>
                     )}
@@ -353,9 +354,8 @@ export const StoreAddProducts = () => {
                   {/* Name, Telugu & Unit */}
                   <div className="min-w-0 flex-1">
                     <h3 className="text-sm font-bold text-ink-900 leading-snug truncate">
-                      {p.nameTe || p.name}
+                      {isTe && p.nameTe ? p.nameTe : p.name}
                     </h3>
-                    <p className="text-xs text-ink-600 truncate">{p.name}</p>
                     <div className="flex items-center gap-2 mt-0.5 text-xs text-ink-500">
                       <span>{p.brand}</span>
                       <span>•</span>

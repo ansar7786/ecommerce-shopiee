@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { BellOff, Volume2, VolumeX, Clock, Check, X, ChevronRight, Package } from 'lucide-react';
 import api from '../../api/axios';
 import { useSocket } from '../../context/SocketContext';
@@ -17,6 +18,8 @@ import { formatPaise } from '../../utils/format';
 
 export const StoreOrders = () => {
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
+  const isTe = i18n.language === 'te';
   const { socket, registerRefreshListener } = useSocket();
   const { showToast } = useToast();
 
@@ -251,7 +254,7 @@ export const StoreOrders = () => {
       await api.patch(`/store/orders/${orderId}/reject`, {
         reason: rejectReason,
       });
-      showToast({ type: 'info', message: 'ఆర్డర్ తిరస్కరించబడింది (Order declined)' });
+      showToast({ type: 'info', message: isTe ? 'ఆర్డర్ తిరస్కరించబడింది' : 'Order declined' });
       setRejectSheetOpen(false);
       handleDismissModal();
       fetchOrders();
@@ -274,8 +277,12 @@ export const StoreOrders = () => {
       showToast({
         type: 'success',
         message: !store.isOpen
-          ? 'దుకాణం తెరవబడింది (Store Opened)'
-          : 'దుకాణం మూసివేయబడింది (Store Closed)',
+          ? isTe
+            ? 'దుకాణం తెరవబడింది'
+            : 'Store Opened'
+          : isTe
+            ? 'దుకాణం మూసివేయబడింది'
+            : 'Store Closed',
       });
     } catch (err) {
       showToast({
@@ -286,10 +293,10 @@ export const StoreOrders = () => {
   };
 
   const tabs = [
-    { key: 'new', label: 'కొత్తవి (New)', count: counts.new },
-    { key: 'preparing', label: 'ప్యాకింగ్ (Preparing)', count: counts.preparing },
-    { key: 'readyOut', label: 'సిద్ధంగా (Ready)', count: counts.readyOut },
-    { key: 'done', label: 'పూర్తయినవి (Done)', count: counts.done },
+    { key: 'new', label: isTe ? 'కొత్తవి' : 'New', count: counts.new },
+    { key: 'preparing', label: isTe ? 'ప్యాకింగ్' : 'Preparing', count: counts.preparing },
+    { key: 'readyOut', label: isTe ? 'సిద్ధంగా' : 'Ready', count: counts.readyOut },
+    { key: 'done', label: isTe ? 'పూర్తయినవి' : 'Done', count: counts.done },
   ];
 
   return (
@@ -307,7 +314,15 @@ export const StoreOrders = () => {
           }`}
         >
           <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
-          <span>{store?.isOpen ? 'షాప్ తెరిచి ఉంది (Open)' : 'షాప్ మూసి ఉంది (Closed)'}</span>
+          <span>
+            {store?.isOpen
+              ? isTe
+                ? 'షాప్ తెరిచి ఉంది'
+                : 'Store Open'
+              : isTe
+                ? 'షాప్ మూసి ఉంది'
+                : 'Store Closed'}
+          </span>
         </button>
 
         {/* Action Toggles: Sound & Language */}
@@ -334,9 +349,11 @@ export const StoreOrders = () => {
           <div className="flex items-center gap-2.5">
             <BellOff className="w-5 h-5 text-amber-700 shrink-0" />
             <div className="text-xs text-amber-950 font-bold leading-tight">
-              <p>ధ్వని హెచ్చరికలు నిలిపివేయబడ్డాయి (Alerts off)</p>
+              <p>{isTe ? 'ధ్వని హెచ్చరికలు నిలిపివేయబడ్డాయి' : 'Sound alerts disabled'}</p>
               <p className="font-normal text-[11px] text-amber-800">
-                కొత్త ఆర్డర్ సౌండ్ వినడానికి ఆన్ చేయండి
+                {isTe
+                  ? 'కొత్త ఆర్డర్ సౌండ్ వినడానికి ఆన్ చేయండి'
+                  : 'Enable to hear incoming order alerts'}
               </p>
             </div>
           </div>
@@ -348,7 +365,7 @@ export const StoreOrders = () => {
             onClick={unlockAudio}
             className="text-xs font-black min-h-[40px] px-3 whitespace-nowrap"
           >
-            Enable alerts
+            {isTe ? 'ఆన్ చేయండి' : 'Enable alerts'}
           </Button>
         </div>
       )}
@@ -391,8 +408,12 @@ export const StoreOrders = () => {
           <div className="pt-6">
             <EmptyState
               icon={Package}
-              title="ఆర్డర్లు లేవు (No Orders)"
-              description={`ఈ విభాగంలో ఆర్డర్లు ఏవీ లేవు (${activeTab}).`}
+              title={isTe ? 'ఆర్డర్లు లేవు' : 'No Orders'}
+              description={
+                isTe
+                  ? `ఈ విభాగంలో ఆర్డర్లు ఏవీ లేవు (${activeTab}).`
+                  : `No orders in this tab (${activeTab}).`
+              }
             />
           </div>
         ) : (
@@ -420,7 +441,13 @@ export const StoreOrders = () => {
                 </span>
                 <span>
                   {order.items.length} {order.items.length === 1 ? 'item' : 'items'} •{' '}
-                  {order.fulfilment === 'delivery' ? 'డెలివరీ' : 'పికప్'}
+                  {order.fulfilment === 'delivery'
+                    ? isTe
+                      ? 'డెలివరీ'
+                      : 'Delivery'
+                    : isTe
+                      ? 'పికప్'
+                      : 'Pickup'}
                 </span>
               </div>
 
@@ -433,7 +460,8 @@ export const StoreOrders = () => {
                   })}
                 </span>
                 <span className="font-bold text-primary-600 flex items-center gap-0.5">
-                  వివరాలు చూడండి (View) <ChevronRight className="w-3.5 h-3.5" />
+                  {isTe ? 'వివరాలు చూడండి' : 'View Details'}{' '}
+                  <ChevronRight className="w-3.5 h-3.5" />
                 </span>
               </div>
             </Card>
@@ -449,7 +477,9 @@ export const StoreOrders = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-emerald-500 animate-ping" />
-                <h2 className="text-lg font-black text-emerald-950">కొత్త ఆర్డర్! (New Order)</h2>
+                <h2 className="text-lg font-black text-emerald-950">
+                  {isTe ? 'కొత్త ఆర్డర్!' : 'New Order!'}
+                </h2>
               </div>
 
               {/* Countdown badge */}
@@ -465,37 +495,47 @@ export const StoreOrders = () => {
             {/* Customer & Order Summary Card */}
             <div className="bg-gray-50 border border-ink-200 p-4 rounded-2xl space-y-2 text-xs">
               <div className="flex items-center justify-between">
-                <span className="text-ink-500 font-semibold">కస్టమర్ (Customer):</span>
+                <span className="text-ink-500 font-semibold">
+                  {isTe ? 'కస్టమర్:' : 'Customer:'}
+                </span>
                 <span className="font-black text-sm text-ink-900">
                   {currentModalOrder.customer?.name?.split(' ')[0] || 'Customer'}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-ink-500 font-semibold">మొత్తం (Total):</span>
+                <span className="text-ink-500 font-semibold">{isTe ? 'మొత్తం:' : 'Total:'}</span>
                 <span className="font-black text-base text-primary-700">
                   {formatPaise(currentModalOrder.total)}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-ink-500 font-semibold">వస్తువులు (Items):</span>
+                <span className="text-ink-500 font-semibold">{isTe ? 'వస్తువులు:' : 'Items:'}</span>
                 <span className="font-bold text-ink-800">
-                  {currentModalOrder.items?.length} items
+                  {currentModalOrder.items?.length} {isTe ? 'వస్తువులు' : 'items'}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-ink-500 font-semibold">చెల్లింపు (Payment):</span>
+                <span className="text-ink-500 font-semibold">
+                  {isTe ? 'చెల్లింపు:' : 'Payment:'}
+                </span>
                 <span className="font-bold text-ink-800">
                   {currentModalOrder.paymentMethod} ({currentModalOrder.paymentStatus})
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-ink-500 font-semibold">రకం (Type):</span>
+                <span className="text-ink-500 font-semibold">{isTe ? 'రకం:' : 'Type:'}</span>
                 <span className="font-bold text-ink-800">
-                  {currentModalOrder.fulfilment === 'delivery' ? 'Home Delivery' : 'Store Pickup'}
+                  {currentModalOrder.fulfilment === 'delivery'
+                    ? isTe
+                      ? 'హోమ్ డెలివరీ'
+                      : 'Home Delivery'
+                    : isTe
+                      ? 'షాప్ పికప్'
+                      : 'Store Pickup'}
                 </span>
               </div>
             </div>
@@ -508,7 +548,7 @@ export const StoreOrders = () => {
                 className="w-full min-h-[56px] rounded-2xl bg-red-600 hover:bg-red-700 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-red-200 active:scale-95 transition-all"
               >
                 <X className="w-5 h-5 stroke-[3]" />
-                <span>తిరస్కరించు (Reject)</span>
+                <span>{isTe ? 'తిరస్కరించు' : 'Reject'}</span>
               </button>
 
               <button
@@ -517,7 +557,7 @@ export const StoreOrders = () => {
                 className="w-full min-h-[56px] rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-200 active:scale-95 transition-all"
               >
                 <Check className="w-5 h-5 stroke-[3]" />
-                <span>స్వీకరించు (Accept)</span>
+                <span>{isTe ? 'స్వీకరించు' : 'Accept'}</span>
               </button>
             </div>
           </div>
@@ -528,15 +568,15 @@ export const StoreOrders = () => {
       <BottomSheet
         isOpen={rejectSheetOpen}
         onClose={() => setRejectSheetOpen(false)}
-        title="తిరస్కరణ కారణం (Select Reason)"
+        title={isTe ? 'తిరస్కరణ కారణం' : 'Select Reason'}
       >
         <div className="space-y-4 pb-4">
           <div className="space-y-2">
             {[
-              { key: 'Out of stock', label: 'వస్తువులు లేవు (Out of stock)' },
-              { key: 'Shop closing', label: 'షాప్ మూసివేస్తున్నాము (Shop closing)' },
-              { key: 'Too far', label: 'చాలా దూరం (Too far)' },
-              { key: 'Other', label: 'ఇతర కారణం (Other)' },
+              { key: 'Out of stock', label: isTe ? 'వస్తువులు లేవు' : 'Items out of stock' },
+              { key: 'Shop closing', label: isTe ? 'షాప్ మూసివేస్తున్నాము' : 'Store closing soon' },
+              { key: 'Too far', label: isTe ? 'చాలా దూరం' : 'Too far' },
+              { key: 'Other', label: isTe ? 'ఇతర కారణం' : 'Other' },
             ].map((r) => (
               <label
                 key={r.key}
@@ -567,7 +607,7 @@ export const StoreOrders = () => {
               onClick={() => setRejectSheetOpen(false)}
               className="flex-1 font-bold text-xs min-h-[48px]"
             >
-              రద్దు (Cancel)
+              {isTe ? 'రద్దు' : 'Cancel'}
             </Button>
             <Button
               type="button"
@@ -576,7 +616,7 @@ export const StoreOrders = () => {
               onClick={() => handleRejectOrder(currentModalOrder._id)}
               className="flex-1 font-bold text-xs min-h-[48px]"
             >
-              ధృవీకరించు (Confirm Reject)
+              {isTe ? 'ధృవీకరించు' : 'Confirm Reject'}
             </Button>
           </div>
         </div>

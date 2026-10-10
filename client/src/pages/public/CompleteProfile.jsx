@@ -16,7 +16,11 @@ export const CompleteProfile = () => {
   const [name, setName] = useState(user?.name || '');
   const [phone, setPhone] = useState(user?.phone || '');
   const [phoneError, setPhoneError] = useState('');
-  const [language, setLanguage] = useState(user?.language || i18n.language || 'en');
+  const [language, setLanguage] = useState(
+    user?.language ||
+      (typeof window !== 'undefined' ? localStorage.getItem('kirana_language') : null) ||
+      'en',
+  );
 
   // OTP mock flow: 'input_phone' | 'otp_sent' | 'verified'
   const [otpStep, setOtpStep] = useState(user?.phone ? 'verified' : 'input_phone');
@@ -57,6 +61,9 @@ export const CompleteProfile = () => {
   const handleSelectLanguage = (lang) => {
     setLanguage(lang);
     i18n.changeLanguage(lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('kirana_language', lang);
+    }
   };
 
   const handleSubmit = async (e) => {

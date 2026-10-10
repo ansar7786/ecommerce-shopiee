@@ -460,7 +460,9 @@ export const AdminOrders = () => {
                 {selectedOrder.items?.map((it, idx) => (
                   <div key={idx} className="py-2 flex items-center justify-between">
                     <div>
-                      <p className="font-bold text-ink-900">{it.name}</p>
+                      <p className="font-bold text-ink-900">
+                        {isTe && it.nameTe ? it.nameTe : it.name}
+                      </p>
                       <p className="text-ink-500 text-[11px]">
                         {formatPaise(it.price)} × {it.qty}
                       </p>

@@ -94,7 +94,7 @@ Accent (amber)
 Fonts	Inter + Noto Sans Telugu
 Base viewport	mobile-first, 390 px
 Touch targets	48 px minimum; 56 px on store screens
-Language	Telugu-first on store screens; customer defaults by user preference
+Language	English by default; Telugu only when the user selects it
 
 Add the extra tokens (error, neutrals, surfaces, radius) to tailwind.config.js only, never as hardcoded hex values in components.
 

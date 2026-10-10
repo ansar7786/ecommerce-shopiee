@@ -1,13 +1,22 @@
 import { useTranslation } from 'react-i18next';
 import { Globe } from 'lucide-react';
+import api from '../api/axios';
 
 export const LanguageToggle = ({ className = '' }) => {
   const { i18n } = useTranslation();
   const currentLang = i18n.language || 'en';
 
-  const toggleLanguage = () => {
+  const toggleLanguage = async () => {
     const nextLang = currentLang === 'te' ? 'en' : 'te';
     i18n.changeLanguage(nextLang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('kirana_language', nextLang);
+    }
+    try {
+      await api.patch('/users/me', { language: nextLang });
+    } catch {
+      // Ignored if user is not logged in
+    }
   };
 
   return (

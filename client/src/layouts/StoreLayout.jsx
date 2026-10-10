@@ -1,20 +1,11 @@
-import { useEffect } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ClipboardList, Boxes, Wallet, Settings } from 'lucide-react';
 import { LanguageToggle } from '../components/LanguageToggle';
 
 export const StoreLayout = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const location = useLocation();
-
-  // Default language to Telugu on store layout if not explicitly chosen
-  useEffect(() => {
-    const saved = localStorage.getItem('kirana_language');
-    if (!saved && i18n.language !== 'te') {
-      i18n.changeLanguage('te');
-    }
-  }, [i18n]);
 
   const isRegistrationOrPending =
     location.pathname === '/store/register' || location.pathname === '/store/pending';

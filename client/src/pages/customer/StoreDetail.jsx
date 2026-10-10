@@ -24,7 +24,8 @@ import { formatPaise } from '../../utils/format';
 export const StoreDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isTe = i18n.language === 'te';
   const { cartStore, totalCount, subtotal, addItem, updateQty, getItemQty } = useCart();
 
   const [store, setStore] = useState(null);
@@ -317,7 +318,7 @@ export const StoreDetail = () => {
           {categories.map((cat) => (
             <Chip
               key={cat.id}
-              label={cat.nameTe || cat.name}
+              label={isTe && cat.nameTe ? cat.nameTe : cat.name}
               selected={selectedCategory === cat.id}
               onClick={() => setSelectedCategory(cat.id)}
             />

@@ -121,7 +121,7 @@ export const Orders = () => {
           cartFormattedItems,
           addedCount: availableItems.length,
           skippedCount: skippedItems.length,
-          skippedNames: skippedItems.map((i) => i.nameTe || i.name).join(', '),
+          skippedNames: skippedItems.map((i) => (isTe && i.nameTe ? i.nameTe : i.name)).join(', '),
         });
       } else {
         replaceCartWithItems(store, cartFormattedItems);
