@@ -1,6 +1,6 @@
 # Telugu Language Review & Glossary (తెలుగు అనువాద పరిశీలన)
 
-This document lists localized terms and phrases used across the Kirana platform for review by native Telugu speakers in the pilot area (Gudlavalleru, Krishna District, Andhra Pradesh).
+This document lists localized terms and phrases used across the Locart platform for review by native Telugu speakers in the pilot area (Gudlavalleru, Krishna District, Andhra Pradesh).
 
 ---
 

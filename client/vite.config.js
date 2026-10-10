@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'icons/icon.svg', 'icons/*.png'],
       manifest: {
-        name: 'Kirana',
-        short_name: 'Kirana',
+        name: 'Locart',
+        short_name: 'Locart',
         description: 'Zero-commission neighbourhood kirana ordering platform',
         theme_color: '#15803D',
         background_color: '#FFFFFF',

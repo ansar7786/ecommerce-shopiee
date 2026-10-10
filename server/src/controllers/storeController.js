@@ -6,7 +6,7 @@ const Order = require('../models/Order');
 const geoService = require('../services/geoService');
 const AppError = require('../utils/AppError');
 const asyncHandler = require('../utils/asyncHandler');
-const { emitStoreStatus } = require('../sockets');
+const { emitStoreStatus, emitStoreRegistered } = require('../sockets');
 
 // Generate URL friendly slug from store name
 const generateSlug = async (name) => {
@@ -78,6 +78,7 @@ const registerStore = asyncHandler(async (req, res, next) => {
         rejectionReason: '',
       });
       await existingStore.save();
+      emitStoreRegistered(existingStore);
       return res.status(200).json({
         success: true,
         message: 'Store application re-submitted successfully',
@@ -120,6 +121,8 @@ const registerStore = asyncHandler(async (req, res, next) => {
     status: 'pending',
     rejectionReason: '',
   });
+
+  emitStoreRegistered(store);
 
   res.status(201).json({
     success: true,
@@ -188,6 +191,10 @@ const updateMyStore = asyncHandler(async (req, res, next) => {
   Object.assign(store, updates);
   await store.save();
 
+  if (updates.status === 'pending') {
+    emitStoreRegistered(store);
+  }
+
   res.status(200).json({
     success: true,
     message: 'Store updated successfully',
@@ -247,8 +254,11 @@ const getStoreById = asyncHandler(async (req, res, next) => {
   const isObjectId = mongoose.Types.ObjectId.isValid(id);
   const query = isObjectId ? { $or: [{ _id: id }, { slug: id }] } : { slug: id };
 
-  const store = await Store.findOne({ ...query, status: 'approved' });
-  if (!store) {
+  const store = await Store.findOne({ ...query, status: 'approved' }).populate(
+    'owner',
+    'isBlocked',
+  );
+  if (!store || store.owner?.isBlocked) {
     return next(new AppError(404, 'NOT_FOUND', 'Store not found or not approved'));
   }
 
@@ -290,8 +300,11 @@ const getStoreProductsPublic = asyncHandler(async (req, res, next) => {
   const isObjectId = mongoose.Types.ObjectId.isValid(id);
   const storeQuery = isObjectId ? { $or: [{ _id: id }, { slug: id }] } : { slug: id };
 
-  const store = await Store.findOne({ ...storeQuery, status: 'approved' });
-  if (!store) {
+  const store = await Store.findOne({ ...storeQuery, status: 'approved' }).populate(
+    'owner',
+    'isBlocked',
+  );
+  if (!store || store.owner?.isBlocked) {
     return next(new AppError(404, 'NOT_FOUND', 'Store not found or not approved'));
   }
 

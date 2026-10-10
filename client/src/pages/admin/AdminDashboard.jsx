@@ -26,6 +26,7 @@ import {
   Legend,
 } from 'recharts';
 import api from '../../api/axios';
+import { useSocket } from '../../context/SocketContext';
 import { Card, Button, Skeleton, Badge, EmptyState } from '../../components/ui';
 import { formatPaise } from '../../utils/format';
 
@@ -45,6 +46,7 @@ const STATUS_COLORS = {
 export const AdminDashboard = () => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
+  const { socket } = useSocket();
   const isTe = i18n.language === 'te';
 
   const [stats, setStats] = useState(null);
@@ -52,9 +54,9 @@ export const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = async (isBackground = false) => {
     try {
-      setLoading(true);
+      if (!isBackground) setLoading(true);
       setError(null);
       const [statsRes, storesRes] = await Promise.all([
         api.get('/admin/stats'),
@@ -63,15 +65,34 @@ export const AdminDashboard = () => {
       setStats(statsRes.data.stats);
       setPendingStores(storesRes.data.stores || []);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to load dashboard metrics');
+      if (!isBackground) {
+        setError(err.response?.data?.message || 'Failed to load dashboard metrics');
+      }
     } finally {
-      setLoading(false);
+      if (!isBackground) setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchDashboardData();
-  }, []);
+
+    // 15-second polling fallback
+    const interval = setInterval(() => fetchDashboardData(true), 15000);
+
+    // Socket real-time updates
+    if (socket) {
+      socket.on('store:registered', () => fetchDashboardData(true));
+      socket.on('store:status', () => fetchDashboardData(true));
+    }
+
+    return () => {
+      clearInterval(interval);
+      if (socket) {
+        socket.off('store:registered');
+        socket.off('store:status');
+      }
+    };
+  }, [socket]);
 
   // Format Recharts data
   const lineChartData =
@@ -341,9 +362,16 @@ export const AdminDashboard = () => {
               <Clock className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-sm font-extrabold text-ink-900">
-                {isTe ? 'ఆమోదం కోసం పెండింగ్ ఉన్న దుకాణాలు' : 'Pending Store Approvals'}
-              </h2>
+              <div className="flex items-center gap-2">
+                <h2 className="text-sm font-extrabold text-ink-900">
+                  {isTe ? 'ఆమోదం కోసం పెండింగ్ ఉన్న దుకాణాలు' : 'Pending Store Approvals'}
+                </h2>
+                {pendingStores.length > 0 && (
+                  <span className="bg-red-600 text-white text-[11px] font-black px-2 py-0.5 rounded-full shadow-xs animate-pulse">
+                    {pendingStores.length}
+                  </span>
+                )}
+              </div>
               <p className="text-[11px] text-ink-500">
                 {pendingStores.length}{' '}
                 {isTe ? 'దుకాణాల దరఖాస్తులు సమీక్షించవలసి ఉంది' : 'stores waiting for verification'}

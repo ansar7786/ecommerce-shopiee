@@ -74,8 +74,9 @@ function initSocket(httpServer) {
     const customerRoom = `customer:${user._id}`;
     socket.join(customerRoom);
 
-    // 2. If store owner, find their approved store and join store room
+    // 2. If store owner, join personal store-owner room and store room
     if (user.role === 'store_owner') {
+      socket.join(`store-owner:${user._id}`);
       try {
         const store = await Store.findOne({ owner: user._id });
         if (store) {
@@ -86,6 +87,11 @@ function initSocket(httpServer) {
       } catch (err) {
         console.error('[Socket] Error finding store for owner:', err.message);
       }
+    }
+
+    // 3. If admin, join admin room
+    if (user.role === 'admin') {
+      socket.join('admin');
     }
 
     socket.on('disconnect', () => {
@@ -133,6 +139,24 @@ function emitStoreStatus(storeId, isOpen) {
   ioInstance.emit('store:status', { storeId: String(storeId), isOpen });
 }
 
+function emitStoreRegistered(store) {
+  if (!ioInstance || !store) return;
+  ioInstance.to('admin').emit('store:registered', { store });
+}
+
+function emitStoreApprovalStatus(store) {
+  if (!ioInstance || !store) return;
+  const ownerId = store.owner?._id || store.owner;
+  if (ownerId) {
+    ioInstance.to(`store-owner:${ownerId}`).emit('store:status', {
+      store,
+      status: store.status,
+      rejectionReason: store.rejectionReason,
+    });
+  }
+  ioInstance.to('admin').emit('store:status', { store });
+}
+
 module.exports = {
   initSocket,
   getIO,
@@ -140,4 +164,6 @@ module.exports = {
   emitOrderStatus,
   emitOrderItemsChanged,
   emitStoreStatus,
+  emitStoreRegistered,
+  emitStoreApprovalStatus,
 };

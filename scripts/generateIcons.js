@@ -63,32 +63,17 @@ function createPng(size, isMaskable) {
       const nx = x / size;
       const ny = y / size;
 
-      let inK = false;
-      // Stem of K
-      if (nx >= 0.30 && nx <= 0.42 && ny >= 0.24 && ny <= 0.76) {
-        inK = true;
+      let inL = false;
+      // Stem of L
+      if (nx >= 0.31 && nx <= 0.44 && ny >= 0.24 && ny <= 0.76) {
+        inL = true;
       }
-      // Top diagonal
-      const x1 = 0.36, y1 = 0.50, x2 = 0.69, y2 = 0.24;
-      const lineLenSq1 = (x2 - x1) ** 2 + (y2 - y1) ** 2;
-      const t1 = Math.max(0, Math.min(1, ((nx - x1) * (x2 - x1) + (ny - y1) * (y2 - y1)) / lineLenSq1));
-      const projX1 = x1 + t1 * (x2 - x1);
-      const projY1 = y1 + t1 * (y2 - y1);
-      if (Math.hypot(nx - projX1, ny - projY1) <= 0.065 && ny >= 0.23 && nx >= 0.35) {
-        inK = true;
+      // Foot of L
+      if (nx >= 0.31 && nx <= 0.69 && ny >= 0.64 && ny <= 0.76) {
+        inL = true;
       }
 
-      // Bottom diagonal
-      const x3 = 0.40, y3 = 0.46, x4 = 0.70, y4 = 0.76;
-      const lineLenSq2 = (x4 - x3) ** 2 + (y4 - y3) ** 2;
-      const t2 = Math.max(0, Math.min(1, ((nx - x3) * (x4 - x3) + (ny - y3) * (y4 - y3)) / lineLenSq2));
-      const projX2 = x3 + t2 * (x4 - x3);
-      const projY2 = y3 + t2 * (y4 - y3);
-      if (Math.hypot(nx - projX2, ny - projY2) <= 0.065 && ny <= 0.77 && nx >= 0.36) {
-        inK = true;
-      }
-
-      if (inK) {
+      if (inL) {
         r = fgR; g = fgG; b = fgB;
       }
 
@@ -136,7 +121,7 @@ fs.writeFileSync(path.join(dir, 'icon-maskable-512x512.png'), createPng(512, tru
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <rect width="512" height="512" rx="102" fill="#15803D"/>
-  <path d="M 160 120 L 220 120 L 220 392 L 160 392 Z M 215 260 L 320 120 L 390 120 L 275 270 L 395 392 L 325 392 L 215 255 Z" fill="#FFFFFF"/>
+  <path d="M 160 120 L 224 120 L 224 328 L 352 328 L 352 392 L 160 392 Z" fill="#FFFFFF"/>
 </svg>`;
 fs.writeFileSync(path.join(dir, 'icon.svg'), svg);
 

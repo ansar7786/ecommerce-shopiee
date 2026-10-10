@@ -4,7 +4,7 @@ Read this file first, in every chat. If a request conflicts with it, ask before 
 
 1. What this is
 
-Hyperlocal Kirana Platform: a zero-commission web platform where neighbourhood kirana stores receive and fulfil online orders from nearby customers.
+Locart: a zero-commission web platform where neighbourhood kirana stores receive and fulfil online orders from nearby customers.
 
 Type: Community Service Project (CSP) prototype for a graduate student team.
 Pilot area: Gudlavalleru, Andhra Pradesh.
@@ -132,7 +132,7 @@ If this file and the Guide disagree, stop and flag it.
 - NO `PAYMENT_PENDING` order status. An order is created only after payment SUCCESS (COD counts as immediately successful). The Payment record carries PENDING/SUCCESS/FAILED/CANCELLED/REFUNDED/PARTIALLY_REFUNDED.
 - All money is stored as INTEGER PAISE (₹12.50 = 1250). Format to ₹ only in the UI via utils/format.js.
 - storeProducts: unique index on (store, masterProduct) must be a PARTIAL index (only where masterProduct exists), so custom products do not collide.
-- Order numbers (#KR-1001...) come from an atomic counter collection.
+- Order numbers (#LC-1001...) come from an atomic counter collection.
 - Expiry uses a 30-second sweeper job (setInterval) that checks `expiresAt`, so it survives server restarts.
 - Pickup orders: READY -> DELIVERED directly; UI label is "Handed over" / "Picked up", never "Out for delivery".
 - Customer cancel allowed from PLACED, ACCEPTED, AWAITING_CUSTOMER. Admin force-cancel allowed from any non-terminal status. System auto-cancel (10-min customer timeout) is actor "system".

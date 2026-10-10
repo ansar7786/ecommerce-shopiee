@@ -276,7 +276,7 @@ export const CompleteProfile = () => {
 
       {/* Footer */}
       <footer className="text-center py-2 text-xs text-ink-600">
-        &copy; {new Date().getFullYear()} Kirana Platform.
+        &copy; {new Date().getFullYear()} Locart.
       </footer>
     </div>
   );

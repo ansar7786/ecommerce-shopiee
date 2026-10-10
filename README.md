@@ -1,4 +1,4 @@
-# Hyperlocal Kirana Platform 🛒
+# Locart 🛒
 
 > **Zero-Commission Community Kirana Commerce Platform**  
 > A Community Service Project (CSP) prototype designed for neighborhood kirana stores and customers in **Gudlavalleru, Andhra Pradesh**.
@@ -7,7 +7,7 @@
 
 ## 📌 Overview
 
-The **Hyperlocal Kirana Platform** empowers local neighborhood kirana store owners to receive, manage, and fulfill online grocery and essentials orders without paying marketplace aggregator commissions. 
+The **Locart Platform** empowers local neighborhood kirana store owners to receive, manage, and fulfill online grocery and essentials orders without paying marketplace aggregator commissions. 
 
 Customers discover nearby approved kirana stores within a 3–5 km radius, browse bilingual (Telugu & English) catalogues with strictly enforced MRP protections, place orders with simulated digital payments (UPI, Card, COD), and track their order through a real-time state machine. Store owners receive audio and modal alerts upon new orders, pack items using an interactive checklist, flag unavailable items, and complete fulfillment. Administrators supervise platform health, store approvals, catalogues, complaints, and analytics.
 
@@ -141,7 +141,7 @@ Follow this step-by-step presentation script to demonstrate the platform's compl
 2. Select **Home Delivery** and choose the default Gudlavalleru address.
 3. Proceed to Checkout (`/app/checkout`).
 4. Select **UPI**, enter `customer@okaxis`, and click **Pay**.
-5. Watch the payment authorization state transition seamlessly to **Order Placed** (`#KR-xxxx`).
+5. Watch the payment authorization state transition seamlessly to **Order Placed** (`#LC-xxxx`).
 
 ### Minute 4: Store Dashboard & Real-Time Alerts
 1. In a split window or second browser tab, log in as **Store Owner** (`store1@demo.com`) at `/store/orders`.

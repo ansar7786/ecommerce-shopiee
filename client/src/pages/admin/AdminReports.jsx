@@ -29,7 +29,7 @@ export const AdminReports = () => {
       link.href = url;
       link.setAttribute(
         'download',
-        `kirana-${type}-report-${new Date().toISOString().split('T')[0]}.csv`,
+        `locart-${type}-report-${new Date().toISOString().split('T')[0]}.csv`,
       );
       document.body.appendChild(link);
       link.click();

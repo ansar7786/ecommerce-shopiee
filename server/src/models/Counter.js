@@ -13,11 +13,11 @@ const counterSchema = new mongoose.Schema({
 
 counterSchema.statics.getNextOrderNo = async function () {
   const counter = await this.findByIdAndUpdate(
-    'order',
+    'order_lc',
     { $inc: { seq: 1 } },
     { new: true, upsert: true, setDefaultsOnInsert: true },
   );
-  return `KR-${counter.seq}`;
+  return `LC-${counter.seq}`;
 };
 
 const Counter = mongoose.model('Counter', counterSchema);

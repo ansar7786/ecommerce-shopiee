@@ -13,6 +13,7 @@ import {
   Search,
 } from 'lucide-react';
 import api from '../../api/axios';
+import { useSocket } from '../../context/SocketContext';
 import { DataTable, Button, Badge, BottomSheet, useToast } from '../../components/ui';
 import { LocationPickerMap } from '../../components/map/LocationPickerMap';
 import { formatPaise } from '../../utils/format';
@@ -57,9 +58,28 @@ export const Stores = () => {
     }
   }, [activeTab, searchQuery]);
 
+  const { socket } = useSocket();
+
   useEffect(() => {
     fetchStores();
-  }, [fetchStores]);
+
+    // 15-second polling fallback
+    const interval = setInterval(() => fetchStores(), 15000);
+
+    // Real-time socket events
+    if (socket) {
+      socket.on('store:registered', fetchStores);
+      socket.on('store:status', fetchStores);
+    }
+
+    return () => {
+      clearInterval(interval);
+      if (socket) {
+        socket.off('store:registered', fetchStores);
+        socket.off('store:status', fetchStores);
+      }
+    };
+  }, [fetchStores, socket]);
 
   const handleOpenStore = (store) => {
     setSelectedStore(store);

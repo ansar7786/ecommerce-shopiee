@@ -252,8 +252,11 @@ async function createOrder({
   }
 
   // 2. Validate store
-  const store = await Store.findOne({ _id: storeId, status: 'approved' });
-  if (!store) {
+  const store = await Store.findOne({ _id: storeId, status: 'approved' }).populate(
+    'owner',
+    'isBlocked',
+  );
+  if (!store || store.owner?.isBlocked) {
     throw new AppError(404, 'STORE_NOT_FOUND', 'Store not found or not approved');
   }
 

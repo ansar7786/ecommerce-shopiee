@@ -658,7 +658,7 @@ export const Profile = () => {
       >
         <div className="space-y-3 pb-4 text-xs text-ink-600 max-h-[65vh] overflow-y-auto leading-relaxed">
           <p>
-            This Hyperlocal Kirana Platform prototype is developed as a graduate Community Service
+            This Hyperlocal Locart Platform prototype is developed as a graduate Community Service
             Project (CSP) for local neighbourhood stores in Gudlavalleru, Andhra Pradesh.
           </p>
           <p className="font-bold text-ink-900">Data Collected:</p>

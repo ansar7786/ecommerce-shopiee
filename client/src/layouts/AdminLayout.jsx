@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   LayoutDashboard,
@@ -12,12 +12,60 @@ import {
   Menu,
   X,
   Shield,
+  LogOut,
 } from 'lucide-react';
+import api from '../api/axios';
+import { useSocket } from '../context/SocketContext';
+import { useAuth } from '../context/AuthContext';
 import { LanguageToggle } from '../components/LanguageToggle';
 
 export const AdminLayout = () => {
   const { t } = useTranslation();
+  const { socket } = useSocket();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [pendingCount, setPendingCount] = useState(0);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/login', { replace: true });
+    } catch (err) {
+      console.error('Logout failed:', err);
+    }
+  };
+
+  const fetchPendingCount = useCallback(async () => {
+    try {
+      const res = await api.get('/admin/stores?status=pending');
+      const count = res.data.counts?.pending ?? res.data.stores?.length ?? 0;
+      setPendingCount(count);
+    } catch {
+      // Silently ignore background count fetch errors
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchPendingCount();
+
+    // 15-second polling fallback
+    const interval = setInterval(fetchPendingCount, 15000);
+
+    // Socket real-time updates
+    if (socket) {
+      socket.on('store:registered', fetchPendingCount);
+      socket.on('store:status', fetchPendingCount);
+    }
+
+    return () => {
+      clearInterval(interval);
+      if (socket) {
+        socket.off('store:registered', fetchPendingCount);
+        socket.off('store:status', fetchPendingCount);
+      }
+    };
+  }, [socket, fetchPendingCount]);
 
   const navItems = [
     { to: '/admin', end: true, label: t('nav.dashboard'), icon: LayoutDashboard },
@@ -47,7 +95,18 @@ export const AdminLayout = () => {
             <span>Admin Portal</span>
           </div>
         </div>
-        <LanguageToggle />
+        <div className="flex items-center gap-2">
+          <LanguageToggle />
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="p-2 text-ink-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            title={t('auth.logout')}
+            aria-label={t('auth.logout')}
+          >
+            <LogOut className="w-5 h-5" />
+          </button>
+        </div>
       </header>
 
       {/* Desktop Left Sidebar & Mobile Drawer */}
@@ -63,7 +122,7 @@ export const AdminLayout = () => {
               <Shield className="w-5 h-5 text-accent-500" />
             </div>
             <div>
-              <span className="font-bold text-ink-900 text-sm block">Kirana Admin</span>
+              <span className="font-bold text-ink-900 text-sm block">Locart Admin</span>
               <span className="text-[11px] text-ink-600 block">Console</span>
             </div>
           </div>
@@ -96,15 +155,47 @@ export const AdminLayout = () => {
               >
                 <Icon className="w-5 h-5 flex-shrink-0 stroke-[2.2]" />
                 <span className="truncate">{item.label}</span>
+                {item.to === '/admin/stores' && pendingCount > 0 && (
+                  <span className="ml-auto bg-red-600 text-white text-[11px] font-black px-2 py-0.5 rounded-full shadow-xs animate-pulse">
+                    {pendingCount}
+                  </span>
+                )}
               </NavLink>
             );
           })}
         </nav>
 
-        {/* Desktop Sidebar Footer */}
-        <div className="p-4 border-t border-ink-300/40 hidden md:flex items-center justify-between">
-          <span className="text-xs text-ink-600">Language:</span>
-          <LanguageToggle />
+        {/* Sidebar Footer */}
+        <div className="p-3.5 border-t border-ink-300/40 space-y-3 bg-page/40">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-xs font-medium text-ink-600">Language:</span>
+            <LanguageToggle />
+          </div>
+
+          <div className="pt-2.5 border-t border-ink-200/60">
+            <div className="flex items-center gap-2 mb-2 px-1">
+              <div className="w-7 h-7 rounded-lg bg-ink-800 text-white flex items-center justify-center text-xs font-bold shrink-0">
+                {(user?.name || user?.email || 'A')[0].toUpperCase()}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-bold text-ink-900 truncate">
+                  {user?.name || user?.email || 'Administrator'}
+                </p>
+                <p className="text-[10px] text-ink-500 truncate uppercase tracking-wider font-semibold">
+                  {user?.role || 'admin'}
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-bold text-red-600 hover:text-red-700 bg-white hover:bg-red-50 border border-red-200/80 rounded-xl transition-colors shadow-xs"
+              title={t('auth.logout')}
+            >
+              <LogOut className="w-4 h-4" />
+              <span>{t('auth.logout')}</span>
+            </button>
+          </div>
         </div>
       </aside>
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Clock, AlertCircle, Edit, RotateCw, Store, MapPin, Phone } from 'lucide-react';
 import api from '../../api/axios';
+import { useSocket } from '../../context/SocketContext';
 import { Button, Card, Badge, useToast } from '../../components/ui';
 import { paiseToRupees } from '../../utils/format';
 
@@ -10,6 +11,7 @@ export const StorePending = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { addToast } = useToast();
+  const { socket } = useSocket();
 
   const [loading, setLoading] = useState(true);
   const [store, setStore] = useState(null);
@@ -26,7 +28,8 @@ export const StorePending = () => {
       }
       if (s.status === 'approved') {
         addToast('Congratulations! Your store is approved.', 'success');
-        navigate('/store/orders', { replace: true });
+        const target = (s.productCount ?? 0) < 10 ? '/store/products/add' : '/store/orders';
+        navigate(target, { replace: true });
         return;
       }
       setStore(s);
@@ -40,7 +43,43 @@ export const StorePending = () => {
 
   useEffect(() => {
     fetchStoreStatus();
-  }, [fetchStoreStatus]);
+
+    // 15-second polling fallback
+    const interval = setInterval(fetchStoreStatus, 15000);
+
+    // Socket real-time updates
+    if (socket) {
+      const handleStoreStatus = ({ store: updatedStore, status, rejectionReason }) => {
+        const nextStatus = status || updatedStore?.status;
+        if (nextStatus === 'approved') {
+          addToast('Congratulations! Your store is approved.', 'success');
+          const count = updatedStore?.productCount ?? 0;
+          const target = count < 10 ? '/store/products/add' : '/store/orders';
+          navigate(target, { replace: true });
+        } else if (nextStatus === 'rejected') {
+          setStore((prev) => ({
+            ...prev,
+            ...(updatedStore || {}),
+            status: 'rejected',
+            rejectionReason:
+              rejectionReason || updatedStore?.rejectionReason || prev?.rejectionReason || '',
+          }));
+          addToast('Your store application was rejected.', 'error');
+        } else if (updatedStore) {
+          setStore(updatedStore);
+        }
+      };
+
+      socket.on('store:status', handleStoreStatus);
+
+      return () => {
+        clearInterval(interval);
+        socket.off('store:status', handleStoreStatus);
+      };
+    }
+
+    return () => clearInterval(interval);
+  }, [fetchStoreStatus, socket, navigate, addToast]);
 
   if (loading) {
     return (

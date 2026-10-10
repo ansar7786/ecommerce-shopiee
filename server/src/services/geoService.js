@@ -59,7 +59,7 @@ async function getNearbyStores(latitude, longitude) {
     throw new Error('Invalid latitude or longitude coordinates');
   }
 
-  // 1. $geoNear aggregation
+  // 1. $geoNear aggregation (only approved stores whose owner is not blocked)
   const pipeline = [
     {
       $geoNear: {
@@ -71,6 +71,19 @@ async function getNearbyStores(latitude, longitude) {
         maxDistance: 5000, // 5 km maximum search window
         query: { status: 'approved' },
         spherical: true,
+      },
+    },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'owner',
+        foreignField: '_id',
+        as: 'ownerDoc',
+      },
+    },
+    {
+      $match: {
+        'ownerDoc.isBlocked': { $ne: true },
       },
     },
   ];

@@ -592,7 +592,7 @@ export const StoreSettings = () => {
           <div className="p-3 bg-ink-50 rounded-xl space-y-1 font-medium">
             <p className="font-bold text-ink-900">Support Contact:</p>
             <p>Phone: +91 98765 43210</p>
-            <p>Email: support@kirana-platform.csp</p>
+            <p>Email: support@locart.csp</p>
           </div>
         </div>
       </BottomSheet>

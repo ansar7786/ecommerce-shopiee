@@ -92,7 +92,7 @@ export const StyleguidePage = () => {
               <span>Step 1 Design System</span>
             </div>
             <h1 className="text-3xl font-extrabold text-ink-900 tracking-tight">
-              Kirana Platform Styleguide
+              Locart Styleguide
             </h1>
             <p className="text-sm text-ink-600 mt-1">
               Design tokens, UI primitives, and layout systems.

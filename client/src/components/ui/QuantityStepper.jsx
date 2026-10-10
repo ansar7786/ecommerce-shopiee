@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Minus, Plus } from 'lucide-react';
 
 export const QuantityStepper = ({
@@ -22,19 +23,19 @@ export const QuantityStepper = ({
 
   return (
     <div
-      className={`inline-flex items-center justify-between bg-white border border-ink-300 rounded-xl overflow-hidden shadow-sm select-none ${className}`}
+      className={`w-[108px] h-[44px] inline-flex items-center justify-between bg-white border border-ink-300 rounded-xl overflow-hidden shadow-xs select-none shrink-0 ${className}`}
     >
       <button
         type="button"
         disabled={disabled || value <= min}
         onClick={handleDecrement}
         aria-label="Decrease quantity"
-        className="w-12 h-12 min-w-[48px] min-h-[48px] flex items-center justify-center text-ink-900 hover:bg-page active:bg-ink-300/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors focus:outline-none focus:bg-primary-50"
+        className="w-9 h-[44px] min-w-[36px] max-w-[36px] flex items-center justify-center text-ink-900 hover:bg-page active:bg-ink-300/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors focus:outline-none focus:bg-primary-50 shrink-0"
       >
-        <Minus className="w-5 h-5" />
+        <Minus className="w-4 h-4" />
       </button>
 
-      <span className="w-10 text-center font-semibold text-base text-ink-900 tabular-nums">
+      <span className="flex-1 text-center font-bold text-sm text-ink-900 tabular-nums">
         {value}
       </span>
 
@@ -43,10 +44,19 @@ export const QuantityStepper = ({
         disabled={disabled || value >= max}
         onClick={handleIncrement}
         aria-label="Increase quantity"
-        className="w-12 h-12 min-w-[48px] min-h-[48px] flex items-center justify-center text-ink-900 hover:bg-page active:bg-ink-300/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors focus:outline-none focus:bg-primary-50"
+        className="w-9 h-[44px] min-w-[36px] max-w-[36px] flex items-center justify-center text-ink-900 hover:bg-page active:bg-ink-300/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors focus:outline-none focus:bg-primary-50 shrink-0"
       >
-        <Plus className="w-5 h-5" />
+        <Plus className="w-4 h-4" />
       </button>
     </div>
   );
+};
+
+QuantityStepper.propTypes = {
+  value: PropTypes.number,
+  onChange: PropTypes.func,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
 };

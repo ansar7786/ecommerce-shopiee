@@ -10,6 +10,7 @@ const orderService = require('../services/orderService');
 const { CANCELLED } = require('../constants/orderStatus');
 const asyncHandler = require('../utils/asyncHandler');
 const AppError = require('../utils/AppError');
+const { emitStoreApprovalStatus } = require('../sockets');
 
 // Zod schemas
 const categorySchema = z.object({
@@ -344,6 +345,29 @@ const updateAdminStoreStatus = asyncHandler(async (req, res, next) => {
     return next(new AppError(400, 'VALIDATION_ERROR', 'Valid status or action is required'));
   }
 
+  // Block invalid transitions (e.g. approving an already approved store returns 409)
+  if (store.status === targetStatus) {
+    return next(new AppError(409, 'INVALID_TRANSITION', `Store is already ${targetStatus}`));
+  }
+
+  const ALLOWED_STORE_TRANSITIONS = {
+    pending: ['approved', 'rejected'],
+    approved: ['suspended'],
+    suspended: ['approved'],
+    rejected: [],
+  };
+
+  const allowed = ALLOWED_STORE_TRANSITIONS[store.status] || [];
+  if (!allowed.includes(targetStatus)) {
+    return next(
+      new AppError(
+        409,
+        'INVALID_TRANSITION',
+        `Cannot transition store from ${store.status} to ${targetStatus}`,
+      ),
+    );
+  }
+
   if (targetStatus === 'rejected') {
     if (!rejectionReason || !rejectionReason.trim()) {
       return next(
@@ -361,6 +385,8 @@ const updateAdminStoreStatus = asyncHandler(async (req, res, next) => {
 
   store.status = targetStatus;
   await store.save();
+
+  emitStoreApprovalStatus(store);
 
   res.status(200).json({
     success: true,
@@ -697,7 +723,7 @@ const exportReport = asyncHandler(async (req, res, next) => {
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
     res.setHeader(
       'Content-Disposition',
-      `attachment; filename="kirana-orders-report-${Date.now()}.csv"`,
+      `attachment; filename="locart-orders-report-${Date.now()}.csv"`,
     );
     return res.status(200).send(csvString);
   }
@@ -740,7 +766,7 @@ const exportReport = asyncHandler(async (req, res, next) => {
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
     res.setHeader(
       'Content-Disposition',
-      `attachment; filename="kirana-stores-report-${Date.now()}.csv"`,
+      `attachment; filename="locart-stores-report-${Date.now()}.csv"`,
     );
     return res.status(200).send(csvString);
   }

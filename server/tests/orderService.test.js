@@ -152,7 +152,7 @@ describe('Order Service & State Machine Tests', () => {
       });
 
       expect(order).toBeDefined();
-      expect(order.orderNo).toMatch(/^KR-\d+$/);
+      expect(order.orderNo).toMatch(/^LC-\d+$/);
       expect(order.status).toBe(PLACED);
       expect(order.total).toBe(14000);
       expect(order.fulfilment).toBe('delivery');

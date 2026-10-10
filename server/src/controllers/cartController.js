@@ -42,8 +42,11 @@ const validateCart = asyncHandler(async (req, res, next) => {
     ? { $or: [{ _id: storeId }, { slug: storeId }] }
     : { slug: storeId };
 
-  const store = await Store.findOne({ ...storeQuery, status: 'approved' });
-  if (!store) {
+  const store = await Store.findOne({ ...storeQuery, status: 'approved' }).populate(
+    'owner',
+    'isBlocked',
+  );
+  if (!store || store.owner?.isBlocked) {
     return next(new AppError(404, 'STORE_NOT_FOUND', 'Store not found or no longer approved'));
   }
 

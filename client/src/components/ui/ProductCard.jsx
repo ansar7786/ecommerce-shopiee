@@ -68,7 +68,7 @@ export const ProductCard = ({ product, quantity = 0, onAdd, onUpdateQty }) => {
       </div>
 
       {/* Pricing & Add/Stepper Row */}
-      <div className="mt-3 pt-2 border-t border-ink-100 flex items-center justify-between gap-1.5">
+      <div className="mt-3 pt-2 border-t border-ink-100 flex flex-wrap items-center justify-between gap-y-2 gap-x-1.5">
         <div className="flex flex-col min-w-0">
           <span className="text-base font-extrabold text-ink-900 leading-tight">
             {formatPaise(product.price)}
@@ -81,13 +81,13 @@ export const ProductCard = ({ product, quantity = 0, onAdd, onUpdateQty }) => {
         </div>
 
         {/* Action: Add Button OR QuantityStepper */}
-        <div className="shrink-0">
+        <div className="shrink-0 ml-auto flex justify-end">
           {isOutOfStock ? (
             <button
               disabled
-              className="text-xs font-bold px-3 py-1.5 rounded-xl bg-gray-200 text-gray-400 cursor-not-allowed"
+              className="w-[108px] h-[44px] flex items-center justify-center text-xs font-bold rounded-xl bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed"
             >
-              Add
+              {t('catalogue.add', { defaultValue: 'Add' })}
             </button>
           ) : quantity > 0 ? (
             <QuantityStepper
@@ -100,10 +100,10 @@ export const ProductCard = ({ product, quantity = 0, onAdd, onUpdateQty }) => {
             <button
               type="button"
               onClick={() => onAdd && onAdd(product)}
-              className="flex items-center gap-1 text-xs font-bold px-3 py-1.5 min-h-[36px] bg-primary-50 text-primary-700 hover:bg-primary-600 hover:text-white border border-primary-300 rounded-xl transition-all shadow-xs active:scale-95"
+              className="w-[108px] h-[44px] flex items-center justify-center gap-1.5 text-xs font-bold bg-primary-50 text-primary-700 hover:bg-primary-600 hover:text-white border border-primary-300 rounded-xl transition-all shadow-xs active:scale-95"
             >
-              <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>Add</span>
+              <Plus className="w-4 h-4 stroke-[2.5]" />
+              <span>{t('catalogue.add', { defaultValue: 'Add' })}</span>
             </button>
           )}
         </div>

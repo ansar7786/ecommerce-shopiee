@@ -371,7 +371,7 @@ export const Cart = () => {
                 <span className="text-xs font-semibold text-ink-600">{t('catalogue.unit')}</span>
                 <QuantityStepper
                   value={item.qty}
-                  min={1}
+                  min={0}
                   max={10}
                   onChange={(nextQty) => updateQty(item.storeProductId, nextQty)}
                 />

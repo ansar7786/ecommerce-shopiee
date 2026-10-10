@@ -69,7 +69,7 @@ export const Login = () => {
       <div className="w-full max-w-md mx-auto flex items-center justify-between py-2">
         <div className="flex items-center gap-2">
           <span className="w-8 h-8 rounded-lg bg-primary-600 text-white font-bold flex items-center justify-center text-base shadow-sm">
-            K
+            L
           </span>
           <span className="font-bold text-ink-900">{t('app.name')}</span>
         </div>
@@ -194,7 +194,7 @@ export const Login = () => {
 
       {/* Footer */}
       <footer className="text-center py-2 text-xs text-ink-600">
-        &copy; {new Date().getFullYear()} Kirana Platform. CSP Prototype.
+        &copy; {new Date().getFullYear()} Locart. CSP Prototype.
       </footer>
     </div>
   );

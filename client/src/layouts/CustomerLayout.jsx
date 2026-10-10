@@ -23,7 +23,7 @@ export const CustomerLayout = () => {
         <div className="max-w-md mx-auto px-4 h-14 flex items-center justify-between">
           <NavLink to="/app" className="flex items-center gap-2">
             <span className="w-8 h-8 rounded-lg bg-primary-600 text-white font-bold flex items-center justify-center text-lg shadow-sm">
-              K
+              L
             </span>
             <span className="font-bold text-lg text-ink-900 tracking-tight">{t('app.name')}</span>
           </NavLink>
