@@ -4,6 +4,8 @@ const { PORT } = require('./config/env');
 const connectDB = require('./config/db');
 const { startSweeper } = require('./jobs/sweeper');
 const { initSocket } = require('./sockets');
+const User = require('./models/User');
+const authService = require('./services/authService');
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
@@ -12,6 +14,8 @@ process.on('unhandledRejection', (reason, promise) => {
 const startServer = async () => {
   try {
     await connectDB();
+    await User.syncIndexes();
+    await authService.ensureAdminAccount();
     const server = http.createServer(app);
     initSocket(server);
     startSweeper();

@@ -39,14 +39,34 @@ export const AuthProvider = ({ children }) => {
     refreshUser();
   }, [refreshUser]);
 
-  const loginWithGoogle = async (credential, intent = 'customer') => {
-    const res = await api.post('/auth/google', { credential, intent });
+  const login = async ({ username, password, role }) => {
+    const res = await api.post('/auth/login', { username, password, role });
     if (res.data?.success && res.data?.user) {
       setUser(res.data.user);
       applyUserLanguage(res.data.user);
       return res.data.user;
     }
-    throw new Error('Google login failed');
+    throw new Error('Login failed');
+  };
+
+  const signup = async ({ name, username, password, phone, role }) => {
+    const res = await api.post('/auth/signup', { name, username, password, phone, role });
+    if (res.data?.success && res.data?.user) {
+      setUser(res.data.user);
+      applyUserLanguage(res.data.user);
+      return res.data.user;
+    }
+    throw new Error('Signup failed');
+  };
+
+  const adminLogin = async ({ username, password }) => {
+    const res = await api.post('/auth/admin/login', { username, password });
+    if (res.data?.success && res.data?.user) {
+      setUser(res.data.user);
+      applyUserLanguage(res.data.user);
+      return res.data.user;
+    }
+    throw new Error('Admin login failed');
   };
 
   const demoLogin = async (role) => {
@@ -72,7 +92,9 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         loading,
-        loginWithGoogle,
+        login,
+        signup,
+        adminLogin,
         demoLogin,
         logout,
         refreshUser,

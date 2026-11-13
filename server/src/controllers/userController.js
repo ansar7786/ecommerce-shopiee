@@ -189,10 +189,10 @@ const deleteAddress = asyncHandler(async (req, res, next) => {
 const deleteMe = asyncHandler(async (req, res) => {
   const user = req.user;
 
-  user.name = 'Deleted User';
-  user.email = `deleted_${user._id}@deleted.local`;
+  user.username = `deleted_${user._id}`;
+  user.passwordHash = undefined;
   user.phone = '';
-  user.googleId = undefined;
+  user.name = 'Deleted User';
   user.isBlocked = true;
   user.addresses = [];
 

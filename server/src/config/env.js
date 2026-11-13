@@ -5,11 +5,8 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const MONGO_URI = process.env.MONGO_URI;
 const JWT_SECRET = process.env.JWT_SECRET;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
-const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '')
-  .split(',')
-  .map((email) => email.trim().toLowerCase())
-  .filter(Boolean);
+const ADMIN_USER_ID = process.env.ADMIN_USER_ID || 'admin';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
 if (!MONGO_URI || !JWT_SECRET) {
   console.error('FATAL ERROR: MONGO_URI and JWT_SECRET must be defined in environment variables.');
@@ -22,6 +19,6 @@ module.exports = {
   MONGO_URI,
   JWT_SECRET,
   CLIENT_ORIGIN,
-  GOOGLE_CLIENT_ID,
-  ADMIN_EMAILS,
+  ADMIN_USER_ID,
+  ADMIN_PASSWORD,
 };

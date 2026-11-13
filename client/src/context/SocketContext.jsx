@@ -41,8 +41,10 @@ export const SocketProvider = ({ children }) => {
       return;
     }
 
-    // Connect to same origin / proxy
-    const socket = io({
+    // Connect to backend URL (in production) or same origin / proxy (in local dev)
+    const socketUrl = import.meta.env.VITE_WS_URL || import.meta.env.VITE_API_URL || undefined;
+
+    const socket = io(socketUrl, {
       withCredentials: true,
       autoConnect: true,
       reconnection: true,

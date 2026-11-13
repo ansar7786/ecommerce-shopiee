@@ -664,7 +664,7 @@ export const Profile = () => {
           <p className="font-bold text-ink-900">Data Collected:</p>
           <ul className="list-disc pl-5 space-y-1 text-ink-700">
             <li>
-              Google OAuth profile credentials (name, email) for session authentication via httpOnly
+              Account credentials (username, name, phone) for session authentication via httpOnly
               cookies.
             </li>
             <li>

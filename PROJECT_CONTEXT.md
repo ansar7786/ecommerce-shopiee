@@ -15,7 +15,7 @@ Frontend	React PWA, Vite, Tailwind CSS
 Backend	Node.js, Express
 Database	MongoDB (Mongoose)
 Realtime	Socket.IO
-Auth	Google OAuth + httpOnly cookie session. Dev-only Demo Login panel for the 3 roles
+Auth	Username + password (bcrypt) + httpOnly cookie session. Dev-only Demo Login panel. Admin uses a separate seeded account.
 i18n	react-i18next: Telugu (te) and English (en)
 Dev proxy	Vite proxy to the API, so there is no cross-domain cookie auth
 3. Folder structure
@@ -140,3 +140,4 @@ If this file and the Guide disagree, stop and flag it.
 - A store owner cannot order from their own store. Customer routes also allow role store_owner.
 - Card mock rule: server receives only brand and last4. last4 "0002" fails, any other valid card succeeds.
 - Images: never invent image URLs. Product images are real files in server/uploads (served at /uploads). No image = category placeholder tile. Never hotlink retailer sites.
+- Auth is username+password. No Google OAuth. Roles: customer and store_owner can self-sign-up; admin is seeded from env (ADMIN_USER_ID / ADMIN_PASSWORD), never signs up. No password reset (admin resets in DB for demo).

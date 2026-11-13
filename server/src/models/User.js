@@ -46,27 +46,30 @@ const addressSchema = new mongoose.Schema(
 
 const userSchema = new mongoose.Schema(
   {
-    googleId: {
+    username: {
       type: String,
-      sparse: true,
-      index: true,
-    },
-    email: {
-      type: String,
-      required: true,
       unique: true,
+      sparse: true,
       lowercase: true,
       trim: true,
       index: true,
+    },
+    passwordHash: {
+      type: String,
+      select: false,
+    },
+    email: {
+      type: String,
+      unique: true,
+      sparse: true,
+      lowercase: true,
+      trim: true,
+      set: (val) => (val && val.trim() ? val.trim().toLowerCase() : undefined),
     },
     name: {
       type: String,
       required: true,
       trim: true,
-    },
-    photo: {
-      type: String,
-      default: '',
     },
     phone: {
       type: String,
@@ -93,6 +96,18 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: {
+      transform: (_doc, ret) => {
+        delete ret.passwordHash;
+        return ret;
+      },
+    },
+    toObject: {
+      transform: (_doc, ret) => {
+        delete ret.passwordHash;
+        return ret;
+      },
+    },
   },
 );
 

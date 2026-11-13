@@ -1,5 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const connectDB = require('../src/config/db');
 const User = require('../src/models/User');
 const Store = require('../src/models/Store');
@@ -12,7 +13,7 @@ const SEED_LNG = Number(process.env.SEED_LNG || 81.05408215921423);
 
 const STORE_DEFINITIONS = [
   {
-    ownerEmail: 'store1@demo.com',
+    ownerUsername: 'store1',
     ownerName: 'Ramesh Kumar',
     ownerPhone: '9848011111',
     storeName: 'Sri Krishna Kirana & General Stores',
@@ -35,7 +36,7 @@ const STORE_DEFINITIONS = [
     productCountTarget: 50,
   },
   {
-    ownerEmail: 'store2@demo.com',
+    ownerUsername: 'store2',
     ownerName: 'Venkata Rao',
     ownerPhone: '9848022222',
     storeName: 'Gudlavalleru Super Bazaar',
@@ -58,7 +59,7 @@ const STORE_DEFINITIONS = [
     productCountTarget: 55,
   },
   {
-    ownerEmail: 'store3@demo.com',
+    ownerUsername: 'store3',
     ownerName: 'Suresh Babu',
     ownerPhone: '9848033333',
     storeName: 'Balaji Provision Store',
@@ -68,7 +69,7 @@ const STORE_DEFINITIONS = [
     pincode: '521356',
     // ~1.05km away
     coordinates: [SEED_LNG + 0.007, SEED_LAT + 0.005],
-    isOpen: false, // Closed store as requested!
+    isOpen: false, // Closed store
     timings: { open: '08:00', close: '20:00' },
     deliveryRadiusKm: 2,
     deliveryFee: 2500, // ₹25.00
@@ -85,6 +86,7 @@ const STORE_DEFINITIONS = [
 async function seedStores() {
   try {
     await connectDB();
+    await User.syncIndexes();
     console.log('Connected to MongoDB. Starting store seeding...');
 
     // Fetch master products
@@ -95,29 +97,33 @@ async function seedStores() {
     }
     console.log(`Found ${masterProducts.length} active master products.`);
 
+    const passwordHash = await bcrypt.hash('store123', 10);
+
     for (const def of STORE_DEFINITIONS) {
-      console.log(`\nProcessing store owner: ${def.ownerEmail}`);
+      console.log(`\nProcessing store owner: ${def.ownerUsername}`);
 
       // 1. Ensure store owner user exists
-      let owner = await User.findOne({ email: def.ownerEmail });
+      let owner = await User.findOne({ username: def.ownerUsername });
       if (!owner) {
         owner = await User.create({
-          email: def.ownerEmail,
+          username: def.ownerUsername,
           name: def.ownerName,
           phone: def.ownerPhone,
+          passwordHash,
           role: STORE_OWNER,
         });
-        console.log(`✓ Created store owner: ${owner.name} (${owner.email})`);
+        console.log(`✓ Created store owner: ${owner.name} (username: ${owner.username})`);
       } else {
         owner.role = STORE_OWNER;
         owner.name = def.ownerName;
         owner.phone = def.ownerPhone;
+        owner.passwordHash = passwordHash;
         await owner.save();
         console.log(`✓ Updated existing owner: ${owner.name}`);
       }
 
       // 2. Ensure store exists
-      let store = await Store.findOne({ owner: owner._id });
+      let store = await Store.findOne({ $or: [{ owner: owner._id }, { slug: def.slug }] });
       if (!store) {
         store = await Store.create({
           owner: owner._id,
@@ -144,6 +150,7 @@ async function seedStores() {
         });
         console.log(`✓ Created store: "${store.name}" (Status: approved, isOpen: ${store.isOpen})`);
       } else {
+        store.owner = owner._id;
         store.name = def.storeName;
         store.phone = def.phone;
         store.address = def.address;
@@ -213,6 +220,10 @@ async function seedStores() {
 
     console.log('\n=============================================');
     console.log('Stores and products seeded successfully! 🎉');
+    console.log('Seeded store owner accounts:');
+    console.log('  - store1 / store123 (Sri Krishna Kirana & General Stores)');
+    console.log('  - store2 / store123 (Gudlavalleru Super Bazaar)');
+    console.log('  - store3 / store123 (Balaji Provision Store)');
     console.log('=============================================\n');
 
     await mongoose.connection.close();

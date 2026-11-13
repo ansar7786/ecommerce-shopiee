@@ -21,7 +21,7 @@ Customers discover nearby approved kirana stores within a 3–5 km radius, brows
 | **Localization** | `react-i18next` with Telugu (`te`) and English (`en`) translations |
 | **Backend** | Node.js, Express, Socket.IO (WebSockets), Multer (Image uploads) |
 | **Database** | MongoDB Atlas / Local MongoDB via Mongoose ODM |
-| **Auth & Security** | Google OAuth, httpOnly Cookie JWT sessions, Role-Based Access Control, Idempotency |
+| **Auth & Security** | Username + Password (bcrypt), httpOnly Cookie JWT sessions, Role-Based Access Control, Idempotency |
 | **Testing** | Jest, Supertest |
 | **Code Quality** | ESLint, Prettier |
 
@@ -52,14 +52,15 @@ NODE_ENV=development
 MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/kirana_db?retryWrites=true&w=majority
 JWT_SECRET=super_secret_kirana_jwt_key_change_in_production_123456
 CLIENT_ORIGIN=http://localhost:5802
-GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
-ADMIN_EMAILS=admin@demo.com
+ADMIN_USER_ID=admin
+ADMIN_PASSWORD=admin123
 ```
 
 #### Client (`client/.env`):
 Create `client/.env` with:
 ```env
-VITE_GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+# Optional in dev; specify production backend URL if deployed separately
+VITE_API_URL=
 ```
 
 ### 4. Database Seeding (`seed:all`)
@@ -84,15 +85,15 @@ Visit the app in your browser at: **`http://localhost:5802`**
 
 ## 👥 Demo Accounts & One-Click Login
 
-In development mode (`NODE_ENV=development`), the login screen (`/login`) provides a **Demo Quick Login** panel allowing instant access without requiring Google OAuth credentials:
+In development mode (`NODE_ENV=development`), the login screen (`/login`) provides a **Demo Quick Login** panel allowing instant access without typing credentials:
 
-| Persona | Demo Email | Role | Key Capabilities |
+| Persona | Username / Password | Role | Key Capabilities |
 |---|---|---|---|
-| **Customer** | `customer@demo.com` | `customer` | Browse nearby stores in Gudlavalleru, manage cart, place orders via Card/UPI/COD, track status, rate store, file complaints. |
-| **Store 1** | `store1@demo.com` | `store_owner` | **Sri Krishna Kirana & General Stores**: Live order alerts, audio chime, packing checklist, mark item unavailable, stock toggles. |
-| **Store 2** | `store2@demo.com` | `store_owner` | **Gudlavalleru Super Bazaar**: Store inventory, analytics, QR code, store settings. |
-| **Store 3** | `store3@demo.com` | `store_owner` | **Balaji Provision Store**: Local grocery operations. |
-| **Platform Admin** | `admin@demo.com` | `admin` | Store approvals, master catalogue CRUD, order management, user blocks, complaint resolutions, CSV exports. |
+| **Customer** | `customer` / `customer123` | `customer` | Browse nearby stores in Gudlavalleru, manage cart, place orders via Card/UPI/COD, track status, rate store, file complaints. |
+| **Store 1** | `store1` / `store123` | `store_owner` | **Sri Krishna Kirana & General Stores**: Live order alerts, audio chime, packing checklist, mark item unavailable, stock toggles. |
+| **Store 2** | `store2` / `store123` | `store_owner` | **Gudlavalleru Super Bazaar**: Store inventory, analytics, QR code, store settings. |
+| **Store 3** | `store3` / `store123` | `store_owner` | **Balaji Provision Store**: Local grocery operations. |
+| **Platform Admin** | `admin` / `admin123` (at `/admin/login`) | `admin` | Store approvals, master catalogue CRUD, order management, user blocks, complaint resolutions, CSV exports. |
 
 ---
 

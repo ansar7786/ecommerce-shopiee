@@ -1,5 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const connectDB = require('../src/config/db');
 const User = require('../src/models/User');
 const Store = require('../src/models/Store');
@@ -38,13 +39,15 @@ async function seedDemo() {
     ]);
 
     // 2. Fetch or create demo customer
-    let customer = await User.findOne({ email: 'customer@demo.com' });
+    const passwordHash = await bcrypt.hash('customer123', 10);
+    let customer = await User.findOne({ username: 'customer' });
     if (!customer) {
       customer = await User.create({
-        email: 'customer@demo.com',
+        username: 'customer',
         name: 'Demo Customer',
         role: CUSTOMER,
         phone: '9999999999',
+        passwordHash,
         addresses: [
           {
             label: 'Home',
@@ -59,20 +62,23 @@ async function seedDemo() {
           },
         ],
       });
-    } else if (!customer.addresses || customer.addresses.length === 0) {
-      customer.addresses = [
-        {
-          label: 'Home',
-          line: 'Door 3-45, Brahmin Street, Gudlavalleru',
-          pincode: '521356',
-          landmark: 'Near Ganapathi Temple',
-          location: {
-            type: 'Point',
-            coordinates: [81.054082, 16.343565],
+    } else {
+      customer.passwordHash = passwordHash;
+      if (!customer.addresses || customer.addresses.length === 0) {
+        customer.addresses = [
+          {
+            label: 'Home',
+            line: 'Door 3-45, Brahmin Street, Gudlavalleru',
+            pincode: '521356',
+            landmark: 'Near Ganapathi Temple',
+            location: {
+              type: 'Point',
+              coordinates: [81.054082, 16.343565],
+            },
+            isDefault: true,
           },
-          isDefault: true,
-        },
-      ];
+        ];
+      }
       await customer.save();
     }
 
@@ -445,6 +451,8 @@ async function seedDemo() {
 
     console.log(`Successfully seeded ${createdOrdersCount} demo orders across ${stores.length} store(s)!`);
     console.log('Seeded demo reviews and complaints. Every dashboard and list now has rich demo content.');
+    console.log('Seeded customer account:');
+    console.log('  - customer / customer123 (Demo Customer in Gudlavalleru)');
 
     if (require.main === module) {
       process.exit(0);
