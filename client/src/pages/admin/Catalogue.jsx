@@ -43,6 +43,79 @@ const getCategoryIconComponent = (iconName) => {
   return ICON_MAP[key] || Package;
 };
 
+const compressImageIfNeeded = (file) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      let { width, height } = img;
+      const maxDim = 1200;
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const newFile = new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), {
+              type: 'image/jpeg',
+            });
+            resolve(newFile);
+          } else {
+            resolve(file);
+          }
+        },
+        'image/jpeg',
+        0.85,
+      );
+    };
+    img.onerror = () => resolve(file);
+    img.src = URL.createObjectURL(file);
+  });
+};
+
+const DrawerImagePreview = ({ src, onClear }) => {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    setError(false);
+  }, [src]);
+
+  const resolved = getImageUrl(src);
+  return (
+    <div className="relative w-20 h-20 rounded-2xl border-2 border-dashed border-ink-300 overflow-hidden flex items-center justify-center bg-page shrink-0 group">
+      {resolved && !error ? (
+        <img
+          src={resolved}
+          alt="Preview"
+          className="w-full h-full object-cover"
+          onError={() => setError(true)}
+        />
+      ) : (
+        <Package className="w-8 h-8 text-ink-300" />
+      )}
+      {src && (
+        <button
+          type="button"
+          onClick={onClear}
+          title="Remove image"
+          className="absolute -top-1 -right-1 bg-ink-900/80 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 hover:bg-red-600 transition-all shadow-sm"
+        >
+          <X className="w-3.5 h-3.5" />
+        </button>
+      )}
+    </div>
+  );
+};
+
 const ProductImageCell = ({ prod }) => {
   const [error, setError] = useState(false);
   const CatIcon = getCategoryIconComponent(prod.category?.icon);
@@ -241,16 +314,27 @@ export const Catalogue = () => {
   };
 
   // Handle Image Selection
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files?.[0];
-    if (file) {
+    if (!file) return;
+
+    try {
+      let processedFile = file;
       if (file.size > 2 * 1024 * 1024) {
-        showToast({ type: 'error', message: 'Image size exceeds 2 MB limit' });
-        return;
+        showToast({ type: 'info', message: 'Optimizing image size...' });
+        processedFile = await compressImageIfNeeded(file);
       }
+      setProductImageFile(processedFile);
+      setImagePreview(URL.createObjectURL(processedFile));
+    } catch {
       setProductImageFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
+  };
+
+  const handleClearImage = () => {
+    setProductImageFile(null);
+    setImagePreview(null);
   };
 
   // Save Product
@@ -684,30 +768,27 @@ export const Catalogue = () => {
                     {t('catalogue.image')}
                   </label>
                   <div className="flex items-center gap-4">
-                    <div className="w-20 h-20 rounded-2xl border-2 border-dashed border-ink-300 overflow-hidden flex items-center justify-center bg-page flex-shrink-0">
-                      {imagePreview ? (
-                        <img
-                          src={getImageUrl(imagePreview)}
-                          alt="Preview"
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <Package className="w-8 h-8 text-ink-300" />
-                      )}
-                    </div>
+                    <DrawerImagePreview src={imagePreview} onClear={handleClearImage} />
                     <div className="flex-1">
-                      <label className="cursor-pointer inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold border border-ink-300 bg-white hover:bg-page transition-colors">
+                      <label
+                        htmlFor="product-image-upload"
+                        className="cursor-pointer inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold border border-ink-300 bg-white hover:bg-page transition-colors shadow-xs"
+                      >
                         <Upload className="w-4 h-4 text-primary-600" />
                         <span>{t('catalogue.uploadImage')}</span>
-                        <input
-                          type="file"
-                          accept="image/jpeg,image/png,image/webp"
-                          className="hidden"
-                          onChange={handleImageChange}
-                        />
                       </label>
+                      <input
+                        id="product-image-upload"
+                        type="file"
+                        accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.bmp"
+                        className="hidden"
+                        onClick={(e) => {
+                          e.target.value = null;
+                        }}
+                        onChange={handleImageChange}
+                      />
                       <p className="text-[11px] text-ink-600 mt-1">
-                        JPEG, PNG, or WebP. Max 2 MB. Leave empty for category tile.
+                        JPEG, PNG, or WebP. Max 5 MB. Leave empty for category tile.
                       </p>
                     </div>
                   </div>

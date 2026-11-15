@@ -22,18 +22,22 @@ const createUpload = (subDirName) => {
   });
 
   const fileFilter = (req, file, cb) => {
-    const allowedMimes = ['image/jpeg', 'image/png', 'image/webp'];
-    const allowedExts = ['.jpg', '.jpeg', '.png', '.webp'];
+    const allowedMimes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/bmp'];
+    const allowedExts = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.bmp'];
     const ext = path.extname(file.originalname).toLowerCase();
 
-    if (allowedMimes.includes(file.mimetype) && allowedExts.includes(ext)) {
+    if (
+      (file.mimetype && file.mimetype.startsWith('image/')) ||
+      allowedMimes.includes(file.mimetype) ||
+      allowedExts.includes(ext)
+    ) {
       cb(null, true);
     } else {
       cb(
         new AppError(
           400,
           'INVALID_FILE_TYPE',
-          'Only JPEG, PNG, and WebP images under 2MB are allowed',
+          'Only JPEG, PNG, and WebP images under 5MB are allowed',
         ),
         false,
       );
@@ -43,7 +47,7 @@ const createUpload = (subDirName) => {
   return multer({
     storage,
     limits: {
-      fileSize: 2 * 1024 * 1024, // 2 MB
+      fileSize: 5 * 1024 * 1024, // 5 MB
     },
     fileFilter,
   });
