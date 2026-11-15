@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Plus,
@@ -83,15 +83,34 @@ const compressImageIfNeeded = (file) => {
   });
 };
 
-const DrawerImagePreview = ({ src, onClear }) => {
+const DrawerImagePreview = ({ src, onClear, onFileDrop, onBoxClick }) => {
   const [error, setError] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
+
   useEffect(() => {
     setError(false);
   }, [src]);
 
   const resolved = getImageUrl(src);
   return (
-    <div className="relative w-20 h-20 rounded-2xl border-2 border-dashed border-ink-300 overflow-hidden flex items-center justify-center bg-page shrink-0 group">
+    <div
+      onClick={onBoxClick}
+      onDragOver={(e) => {
+        e.preventDefault();
+        setIsDragOver(true);
+      }}
+      onDragLeave={() => setIsDragOver(false)}
+      onDrop={(e) => {
+        e.preventDefault();
+        setIsDragOver(false);
+        const file = e.dataTransfer.files?.[0];
+        if (file && onFileDrop) onFileDrop(file);
+      }}
+      title="Click or drag image here"
+      className={`relative w-20 h-20 rounded-2xl border-2 border-dashed overflow-hidden flex items-center justify-center bg-page shrink-0 group cursor-pointer transition-colors ${
+        isDragOver ? 'border-primary-600 bg-primary-50' : 'border-ink-300 hover:border-primary-400'
+      }`}
+    >
       {resolved && !error ? (
         <img
           src={resolved}
@@ -105,7 +124,10 @@ const DrawerImagePreview = ({ src, onClear }) => {
       {src && (
         <button
           type="button"
-          onClick={onClear}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClear();
+          }}
           title="Remove image"
           className="absolute -top-1 -right-1 bg-ink-900/80 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 hover:bg-red-600 transition-all shadow-sm"
         >
@@ -313,10 +335,13 @@ export const Catalogue = () => {
     setCategoryDrawerOpen(true);
   };
 
-  // Handle Image Selection
-  const handleImageChange = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const fileInputRef = useRef(null);
+
+  const handleProcessFile = async (file) => {
+    if (!file || (!file.type?.startsWith('image/') && !file.name?.match(/\.(jpg|jpeg|png|webp|gif|bmp)$/i))) {
+      showToast({ type: 'error', message: 'Please select a valid image file' });
+      return;
+    }
 
     try {
       let processedFile = file;
@@ -332,10 +357,38 @@ export const Catalogue = () => {
     }
   };
 
+  // Handle Image Selection
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) handleProcessFile(file);
+  };
+
   const handleClearImage = () => {
     setProductImageFile(null);
     setImagePreview(null);
   };
+
+  useEffect(() => {
+    if (!productDrawerOpen) return;
+
+    const handlePaste = (e) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (const item of items) {
+        if (item.type?.startsWith('image/')) {
+          const file = item.getAsFile();
+          if (file) {
+            handleProcessFile(file);
+            showToast({ type: 'success', message: 'Image pasted from clipboard' });
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, [productDrawerOpen]);
 
   // Save Product
   const handleSaveProduct = async (e) => {
@@ -371,9 +424,7 @@ export const Catalogue = () => {
       if (productImageFile && savedProduct?._id) {
         const formData = new FormData();
         formData.append('image', productImageFile);
-        await api.post(`/admin/master-products/${savedProduct._id}/image`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
+        await api.post(`/admin/master-products/${savedProduct._id}/image`, formData);
       }
 
       showToast({
@@ -768,7 +819,12 @@ export const Catalogue = () => {
                     {t('catalogue.image')}
                   </label>
                   <div className="flex items-center gap-4">
-                    <DrawerImagePreview src={imagePreview} onClear={handleClearImage} />
+                    <DrawerImagePreview
+                      src={imagePreview}
+                      onClear={handleClearImage}
+                      onFileDrop={handleProcessFile}
+                      onBoxClick={() => fileInputRef.current?.click()}
+                    />
                     <div className="flex-1">
                       <label
                         htmlFor="product-image-upload"
@@ -778,9 +834,10 @@ export const Catalogue = () => {
                         <span>{t('catalogue.uploadImage')}</span>
                       </label>
                       <input
+                        ref={fileInputRef}
                         id="product-image-upload"
                         type="file"
-                        accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.bmp"
+                        accept="image/*"
                         className="hidden"
                         onClick={(e) => {
                           e.target.value = null;
@@ -788,7 +845,7 @@ export const Catalogue = () => {
                         onChange={handleImageChange}
                       />
                       <p className="text-[11px] text-ink-600 mt-1">
-                        JPEG, PNG, or WebP. Max 5 MB. Leave empty for category tile.
+                        Select an image, drag & drop, or paste (Ctrl+V).
                       </p>
                     </div>
                   </div>
