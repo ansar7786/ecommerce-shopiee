@@ -39,6 +39,12 @@ export const AdminLogin = () => {
         msg = t('auth.accountBlocked');
       } else if (code === 'RATE_LIMIT_EXCEEDED') {
         msg = t('auth.tooManyAttempts');
+      } else if (code === 'INVALID_CREDENTIALS') {
+        msg = t('auth.invalidCredentials');
+      } else if (err.response?.data?.message) {
+        msg = err.response.data.message;
+      } else if (!err.response) {
+        msg = 'Cannot connect to server. Please check your network connection.';
       }
       showToast({ type: 'error', message: msg });
     } finally {
