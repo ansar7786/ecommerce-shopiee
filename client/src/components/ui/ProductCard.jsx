@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Plus, Package } from 'lucide-react';
 import { Card } from './Card';
 import { QuantityStepper } from './QuantityStepper';
 import { formatPaise } from '../../utils/format';
+import { getImageUrl } from '../../utils/image';
 
 export const ProductCard = ({ product, quantity = 0, onAdd, onUpdateQty }) => {
   const { t, i18n } = useTranslation();
+  const [imgError, setImgError] = useState(false);
   const isTe = i18n.language === 'te';
 
   const isOutOfStock = !product.inStock;
@@ -14,6 +17,8 @@ export const ProductCard = ({ product, quantity = 0, onAdd, onUpdateQty }) => {
   const displayName = isTe && product.nameTe ? product.nameTe : product.name;
   const categoryName =
     isTe && product.category?.nameTe ? product.category.nameTe : product.category?.name || '';
+
+  const imageUrl = getImageUrl(product.image);
 
   return (
     <Card
@@ -26,12 +31,13 @@ export const ProductCard = ({ product, quantity = 0, onAdd, onUpdateQty }) => {
       <div>
         {/* Thumbnail & Badges */}
         <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-50 border border-ink-100 flex items-center justify-center p-2">
-          {product.image ? (
+          {imageUrl && !imgError ? (
             <img
-              src={product.image}
+              src={imageUrl}
               alt={product.name}
               className={`w-full h-full object-contain ${isOutOfStock ? 'grayscale opacity-75' : ''}`}
               loading="lazy"
+              onError={() => setImgError(true)}
             />
           ) : (
             <div className="flex flex-col items-center justify-center text-primary-600">

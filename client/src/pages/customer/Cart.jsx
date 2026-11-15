@@ -20,6 +20,7 @@ import api from '../../api/axios';
 import { useCart } from '../../context/CartContext';
 import { Button, QuantityStepper, EmptyState, Card } from '../../components/ui';
 import { formatPaise } from '../../utils/format';
+import { getImageUrl } from '../../utils/image';
 
 export const Cart = () => {
   const { t, i18n } = useTranslation();
@@ -300,9 +301,12 @@ export const Cart = () => {
                 <div className="w-16 h-16 rounded-xl bg-gray-50 border border-ink-100 flex items-center justify-center p-1 shrink-0 overflow-hidden">
                   {item.image ? (
                     <img
-                      src={item.image}
+                      src={getImageUrl(item.image)}
                       alt={item.name}
                       className="w-full h-full object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
                     />
                   ) : (
                     <ShoppingBag className="w-7 h-7 text-ink-400" />

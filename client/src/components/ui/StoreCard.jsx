@@ -1,14 +1,18 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Star, Clock, MapPin, Truck, ShoppingBag, Store as StoreIcon } from 'lucide-react';
 import { Badge } from './Badge';
 import { Card } from './Card';
 import { formatPaise } from '../../utils/format';
+import { getImageUrl } from '../../utils/image';
 
 export const StoreCard = ({ store, onClick }) => {
   const { t } = useTranslation();
+  const [photoError, setPhotoError] = useState(false);
 
   const isClosed = !store.isOpenNow;
+  const photoUrl = getImageUrl(store.photo);
 
   return (
     <Card
@@ -22,12 +26,13 @@ export const StoreCard = ({ store, onClick }) => {
       <div className="flex gap-3.5">
         {/* Store Thumbnail */}
         <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-primary-50 shrink-0 border border-ink-100 flex items-center justify-center">
-          {store.photo ? (
+          {photoUrl && !photoError ? (
             <img
-              src={store.photo}
+              src={photoUrl}
               alt={store.name}
               className={`w-full h-full object-cover ${isClosed ? 'grayscale opacity-75' : ''}`}
               loading="lazy"
+              onError={() => setPhotoError(true)}
             />
           ) : (
             <div

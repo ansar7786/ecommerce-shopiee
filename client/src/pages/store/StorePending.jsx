@@ -6,6 +6,7 @@ import api from '../../api/axios';
 import { useSocket } from '../../context/SocketContext';
 import { Button, Card, Badge, useToast } from '../../components/ui';
 import { paiseToRupees } from '../../utils/format';
+import { getImageUrl } from '../../utils/image';
 
 export const StorePending = () => {
   const { t } = useTranslation();
@@ -171,7 +172,14 @@ export const StorePending = () => {
 
         {store.photo && (
           <div className="w-full h-36 rounded-lg overflow-hidden bg-black/5">
-            <img src={store.photo} alt={store.name} className="w-full h-full object-cover" />
+            <img
+              src={getImageUrl(store.photo)}
+              alt={store.name}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
           </div>
         )}
 

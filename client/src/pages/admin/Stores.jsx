@@ -17,6 +17,7 @@ import { useSocket } from '../../context/SocketContext';
 import { DataTable, Button, Badge, BottomSheet, useToast } from '../../components/ui';
 import { LocationPickerMap } from '../../components/map/LocationPickerMap';
 import { formatPaise } from '../../utils/format';
+import { getImageUrl } from '../../utils/image';
 
 export const Stores = () => {
   const { t } = useTranslation();
@@ -148,7 +149,14 @@ export const Stores = () => {
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl overflow-hidden bg-gray-100 shrink-0 flex items-center justify-center border border-ink-200">
             {row.photo ? (
-              <img src={row.photo} alt={row.name} className="w-full h-full object-cover" />
+              <img
+                src={getImageUrl(row.photo)}
+                alt={row.name}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
             ) : (
               <Store className="w-5 h-5 text-ink-400" />
             )}
@@ -292,9 +300,12 @@ export const Stores = () => {
             {selectedStore.photo ? (
               <div className="w-full h-44 rounded-xl overflow-hidden bg-black/5 border border-ink-200">
                 <img
-                  src={selectedStore.photo}
+                  src={getImageUrl(selectedStore.photo)}
                   alt={selectedStore.name}
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
                 />
               </div>
             ) : (

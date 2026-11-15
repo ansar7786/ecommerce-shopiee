@@ -23,6 +23,7 @@ import {
 import api from '../../api/axios';
 import { formatCurrency, paiseToRupees, rupeesToPaise } from '../../utils/format';
 import { Button, Input, Card, Badge, DataTable, useToast } from '../../components/ui';
+import { getImageUrl } from '../../utils/image';
 
 const ICON_MAP = {
   milk: Milk,
@@ -40,6 +41,31 @@ const ICON_MAP = {
 const getCategoryIconComponent = (iconName) => {
   const key = String(iconName || '').toLowerCase();
   return ICON_MAP[key] || Package;
+};
+
+const ProductImageCell = ({ prod }) => {
+  const [error, setError] = useState(false);
+  const CatIcon = getCategoryIconComponent(prod.category?.icon);
+  const src = getImageUrl(prod.image);
+
+  if (!src || error) {
+    return (
+      <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center border border-ink-300/60 bg-primary-50">
+        <CatIcon className="w-6 h-6 text-primary-700 stroke-[2.2]" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center border border-ink-300/60 bg-primary-50">
+      <img
+        src={src}
+        alt={prod.name}
+        className="w-full h-full object-cover"
+        onError={() => setError(true)}
+      />
+    </div>
+  );
 };
 
 export const Catalogue = () => {
@@ -322,25 +348,7 @@ export const Catalogue = () => {
     {
       key: 'image',
       header: t('catalogue.image'),
-      render: (prod) => {
-        const CatIcon = getCategoryIconComponent(prod.category?.icon);
-        return (
-          <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center border border-ink-300/60 bg-primary-50">
-            {prod.image ? (
-              <img
-                src={prod.image}
-                alt={prod.name}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            ) : (
-              <CatIcon className="w-6 h-6 text-primary-700 stroke-[2.2]" />
-            )}
-          </div>
-        );
-      },
+      render: (prod) => <ProductImageCell prod={prod} />,
       className: 'w-16',
     },
     {
@@ -679,7 +687,7 @@ export const Catalogue = () => {
                     <div className="w-20 h-20 rounded-2xl border-2 border-dashed border-ink-300 overflow-hidden flex items-center justify-center bg-page flex-shrink-0">
                       {imagePreview ? (
                         <img
-                          src={imagePreview}
+                          src={getImageUrl(imagePreview)}
                           alt="Preview"
                           className="w-full h-full object-cover"
                         />

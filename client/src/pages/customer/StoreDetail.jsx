@@ -20,6 +20,7 @@ import api from '../../api/axios';
 import { useCart } from '../../context/CartContext';
 import { ProductCard, Skeleton, EmptyState, Chip } from '../../components/ui';
 import { formatPaise } from '../../utils/format';
+import { getImageUrl } from '../../utils/image';
 
 export const StoreDetail = () => {
   const { id } = useParams();
@@ -180,7 +181,14 @@ export const StoreDetail = () => {
         {/* Cover Image / Banner */}
         <div className="relative h-44 w-full bg-linear-to-tr from-primary-700 via-primary-600 to-amber-600">
           {store.photo ? (
-            <img src={store.photo} alt={store.name} className="w-full h-full object-cover" />
+            <img
+              src={getImageUrl(store.photo)}
+              alt={store.name}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center text-white/90">
               <StoreIcon className="w-14 h-14 stroke-[1.5] mb-1" />

@@ -17,6 +17,7 @@ import * as LucideIcons from 'lucide-react';
 import api from '../../api/axios';
 import { Button, Badge, Card, BottomSheet, useToast } from '../../components/ui';
 import { formatPaise, paiseToRupees, rupeesToPaise } from '../../utils/format';
+import { getImageUrl } from '../../utils/image';
 
 const resolveIcon = (name) => {
   if (!name) return Package;
@@ -325,10 +326,13 @@ export const StoreProducts = () => {
                   <div className="w-14 h-14 rounded-xl overflow-hidden bg-gray-50 shrink-0 border border-ink-100 flex items-center justify-center p-1">
                     {image ? (
                       <img
-                        src={image}
+                        src={getImageUrl(image)}
                         alt={name}
                         className="w-full h-full object-contain"
                         loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
                       />
                     ) : (
                       <div className="flex flex-col items-center justify-center text-primary-700">
